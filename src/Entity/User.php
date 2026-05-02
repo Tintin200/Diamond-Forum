@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -30,6 +32,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'article')]
+    private ?self $user = null;
 
     public function getId(): ?int
     {
@@ -104,5 +109,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $data["\0" . self::class . "\0password"] = hash('crc32c', $this->password);
         
         return $data;
+    }
+
+    public function getUser(): ?self
+    {
+        return $this->user;
+    }
+
+    public function setUser(?self $user): static
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }
