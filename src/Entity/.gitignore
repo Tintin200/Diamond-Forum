@@ -1,0 +1,7 @@
+# Generated or temporary entity files (if using any ORM code generation tools)
+*.tmp
+*.cache
+
+# Backup files that might be created during entity modifications
+*.bak
+*~
