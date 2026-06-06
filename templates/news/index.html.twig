@@ -1,20 +1,91 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello NewsController!{% endblock %}
+{% block title %}Actualités - Diamond Forum{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<main>
+    <h1>📡 Actualités et Décryptages du Terrain</h1>
+    <p>Découvrez les dernières dépêches, rumeurs de transfert et résumés de matchs analysés par nos experts.</p>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <section>
+        <h2>À la Une</h2>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/aymou/Documents/Bachelor 3/Projet final/baseball_v1/src/Controller/NewsController.php</code></li>
-        <li>Your template at <code>C:/Users/aymou/Documents/Bachelor 3/Projet final/baseball_v1/templates/news/index.html.twig</code></li>
-    </ul>
-</div>
+        <article class="card mb">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                <div>
+                    <span class="badge primary">Choc Transfert</span>
+                </div>
+                <span class="text-secondary" style="font-size: 0.9rem;">Aujourd'hui</span>
+            </div>
+            <h3>Adieu à Ohtani : Les Dodgers vendent Ohtani aux Yankees</h3>
+            <p>Dans ce qui s'annonce comme l'un des mouvements les plus spectaculaires de la décennie, les Dodgers de Los Angeles ont confirmé l'accord de transfert envoyant la superstar Shohei Ohtani sous les couleurs mythiques des New York Yankees. Les fans du Bronx retiennent déjà leur souffle.</p>
+            <a href="#" style="font-weight: 600; color: var(--accent-green);">Lire l'article complet →</a>
+        </article>
+
+        <article class="card mb">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                <div>
+                    <span class="badge">Série Mondiale</span>
+                </div>
+                <span class="text-secondary" style="font-size: 0.9rem;">Hier</span>
+            </div>
+            <h3>Célébration à Boston : Les Red Sox remportent la Série Mondiale</h3>
+            <p>Une soirée historique au Fenway Park. Les Boston Red Sox ont décroché le titre suprême au terme d'un match 7 d'anthologie contre les Houston Astros. Une victoire célébrée dans toute la ville sous un déluge de confettis.</p>
+            <a href="#" style="font-weight: 600; color: var(--accent-green);">Lire l'article complet →</a>
+        </article>
+
+        <article class="card mb">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                <div>
+                    <span class="badge">Ambiance</span>
+                </div>
+                <span class="text-secondary" style="font-size: 0.9rem;">Il y a 2 jours</span>
+            </div>
+            <h3>L'ambiance est à son comble au Yankee Stadium</h3>
+            <p>Le mythique stade new-yorkais affiche complet pour le début des playoffs. Entre les chants des supporters et l'odeur des hot-dogs traditionnels, l'atmosphère de ce premier match contre les Red Sox était tout simplement électrique.</p>
+            <a href="#" style="font-weight: 600; color: var(--accent-green);">Lire l'article complet →</a>
+        </article>
+    </section>
+
+    <section>
+        <h2>Catégories Populaires</h2>
+        <div class="grid">
+            <div class="card">
+                <h3 style="margin-top: 0;">Analyses de Match</h3>
+                <p class="text-secondary mb">Mis à jour quotidiennement</p>
+                <p>Décryptage tactique des lancers et des choix stratégiques des managers de la MLB.</p>
+            </div>
+
+            <div class="card">
+                <h3 style="margin-top: 0;">Rumeurs & Transferts</h3>
+                <p class="text-secondary mb">Alertes en temps réel</p>
+                <p>Suivez les coulisses des négociations d'agents et les futurs mouvements des joueurs vedettes.</p>
+            </div>
+
+            <div class="card">
+                <h3 style="margin-top: 0;">Sabermetrics & Stats</h3>
+                <p class="text-secondary mb">Hebdomadaire</p>
+                <p>Pour les amateurs de chiffres : analyses poussées des statistiques de WHIP, ERA et WAR.</p>
+            </div>
+
+            <div class="card">
+                <h3 style="margin-top: 0;">Focus Équipes</h3>
+                <p class="text-secondary mb">Mensuel</p>
+                <p>Analyses approfondies sur l'état de forme et les finances des 30 franchises de la MLB.</p>
+            </div>
+
+            <div class="card">
+                <h3 style="margin-top: 0;">Légendes du Baseball</h3>
+                <p class="text-secondary mb">Rétrospective</p>
+                <p>Redécouvrez les carrières exceptionnelles des icônes qui ont marqué l'histoire du jeu.</p>
+            </div>
+
+            <div class="card">
+                <h3 style="margin-top: 0;">Stades Historiques</h3>
+                <p class="text-secondary mb">Reportage</p>
+                <p>Un voyage à travers les parcs et terrains légendaires des États-Unis et du monde entier.</p>
+            </div>
+        </div>
+    </section>
+</main>
 {% endblock %}

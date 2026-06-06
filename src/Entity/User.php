@@ -33,9 +33,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'article')]
-    private ?self $user = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -107,19 +104,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $data = (array) $this;
         $data["\0" . self::class . "\0password"] = hash('crc32c', $this->password);
-        
+
         return $data;
     }
-
-    public function getUser(): ?self
-    {
-        return $this->user;
-    }
-
-    public function setUser(?self $user): static
-    {
-        $this->user = $user;
-
-        return $this;
-    }
 }
+

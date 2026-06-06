@@ -1,20 +1,80 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ChatController!{% endblock %}
+{% block title %}Forum - Diamond Forum{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<main>
+    <h1>💬 Forum des Passionnés</h1>
+    <p>Échangez en direct avec la communauté de Diamond Forum sur tous les sujets chauds du baseball et de la MLB.</p>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <section>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h2 style="margin: 0;">Salons de Discussion</h2>
+            <button class="btn">Créer un Sujet</button>
+        </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/aymou/Documents/Bachelor 3/Projet final/baseball_v1/src/Controller/ChatController.php</code></li>
-        <li>Your template at <code>C:/Users/aymou/Documents/Bachelor 3/Projet final/baseball_v1/templates/chat/index.html.twig</code></li>
-    </ul>
-</div>
+        <div class="grid">
+            <div class="card">
+                <h3>⚾ Actualité MLB (Ligue Majeure)</h3>
+                <p class="text-secondary">Discussions en direct sur les rencontres de la saison régulière, les playoffs et le repêchage annuel.</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                    <span class="badge primary">287 posts</span>
+                    <a href="#">Explorer →</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🔄 Mercato & Rumeurs de Transfert</h3>
+                <p class="text-secondary">Suivi des agents libres, des prolongations de contrats et des négociations d'échange de joueurs stars.</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                    <span class="badge primary">64 posts</span>
+                    <a href="#">Explorer →</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🏟️ Ballparks & Expériences Fans</h3>
+                <p class="text-secondary">Partagez vos récits de voyages, vos avis sur les stades visités et vos conseils pour l'ambiance des tribunes.</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                    <span class="badge primary">451 posts</span>
+                    <a href="#">Explorer →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Discussions Récentes</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Sujet</th>
+                    <th>Auteur</th>
+                    <th>Réponses</th>
+                    <th>Dernière activité</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="#">Pronostics pour le match Yankees vs Red Sox</a></td>
+                    <td>YankeesFan99</td>
+                    <td>34</td>
+                    <td>Il y a 1h</td>
+                </tr>
+                <tr>
+                    <td><a href="#">Statistiques de Shohei Ohtani : Vers un nouveau record ?</a></td>
+                    <td>SabermetricsPro</td>
+                    <td>18</td>
+                    <td>Il y a 3h</td>
+                </tr>
+                <tr>
+                    <td><a href="#">Visite de Fenway Park : Vos meilleurs conseils d'accès</a></td>
+                    <td>BostonBound</td>
+                    <td>12</td>
+                    <td>Hier</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
 {% endblock %}
