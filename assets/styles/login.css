@@ -1,52 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ⚾ LOGIN / SIGNUP STYLES ⚾ */
+
+:root {
+    --primary-dark: #000000;         /* Noir */
+    --primary-light: #FFFFFF;        /* Blanc */
+    --accent-green: #10B981;         /* Vert */
+    --accent-red: #EF4444;           /* Rouge */
+    --gray-light: #E5E7EB;           /* Gris Clair */
+    --bg-main: #F9FAFB;              /* Light Background */
+    --text-primary: #111827;         /* Dark Text */
+    --text-secondary: #4B5563;       /* Muted Text */
+    --border-color: #E5E7EB;
+}
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    background-color: var(--bg-main);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    position: relative;
+    overflow: hidden;
 }
 
 .form {
     display: flex;
-    justify-self: center;
     flex-direction: column;
-    gap: 10px;
-    background-color: #ffffff;
-    padding: 30px;
-    width: 450px;
-    border-radius: 20px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    gap: 20px;
+    background: var(--primary-light);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--border-color);
+    position: relative;
+    z-index: 1;
+    animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Add a subtle green bar on top of the login card */
+.form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--accent-green);
+    border-radius: 8px 8px 0 0;
+}
+
+.form h1 {
+    text-align: center;
+    color: var(--primary-dark);
+    margin-bottom: 5px;
+    font-size: 20px; /* Inter Heading */
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.form > p:first-of-type {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-top: -15px;
+    font-size: 13px; /* Inter Small */
 }
 
 ::placeholder {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-.form button {
-    align-self: flex-end;
+    color: #9CA3AF;
+    font-family: inherit;
 }
 
 .flex-column > label {
-    color: #151717;
-    font-weight: 600;
+    color: var(--primary-dark);
+    font-weight: 500;
+    margin-bottom: 6px;
+    font-size: 14px; /* Inter Label */
 }
 
 .inputForm {
-    border: 1.5px solid #ecedec;
-    border-radius: 10px;
-    height: 50px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    height: 44px;
     display: flex;
     align-items: center;
-    padding-left: 10px;
-    transition: 0.2s ease-in-out;
+    padding: 0 14px;
+    transition: all 0.2s ease;
+    background: var(--primary-light);
 }
 
 .input {
-    margin-left: 10px;
-    border-radius: 10px;
     border: none;
-    width: 85%;
+    width: 100%;
     height: 100%;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-family: inherit;
 }
 
 .input:focus {
@@ -54,7 +108,15 @@ body {
 }
 
 .inputForm:focus-within {
-    border: 1.5px solid #2d79f3;
+    border-color: var(--accent-green);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+}
+
+.inputForm svg {
+    fill: var(--text-secondary);
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
 }
 
 .flex-row {
@@ -63,64 +125,141 @@ body {
     align-items: center;
     gap: 10px;
     justify-content: space-between;
+    margin-top: 5px;
 }
 
 .flex-row > div > label {
-    font-size: 14px;
-    color: black;
+    font-size: 13px;
+    color: var(--text-secondary);
     font-weight: 400;
+    cursor: pointer;
 }
 
 .span {
-    font-size: 14px;
-    margin-left: 5px;
-    color: #2d79f3;
+    font-size: 13px;
+    color: var(--accent-green);
     font-weight: 500;
     cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.span:hover {
+    color: #059669;
+    text-decoration: underline;
 }
 
 .button-submit {
-    margin: 20px 0 10px 0;
-    background-color: #151717;
+    margin-top: 10px;
+    background: var(--primary-dark);
     border: none;
-    color: white;
-    font-size: 15px;
+    color: var(--primary-light);
+    font-size: 14px; /* Inter Label */
     font-weight: 500;
-    border-radius: 10px;
-    height: 50px;
-    width: 100%;
+    border-radius: 6px;
+    height: 44px;
     cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.025em;
 }
 
 .button-submit:hover {
-    background-color: #252727;
+    background: #1F2937;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.button-submit:active {
+    transform: translateY(0);
 }
 
 .p {
     text-align: center;
-    color: black;
-    font-size: 14px;
+    color: var(--text-secondary);
+    font-size: 13px;
     margin: 5px 0;
 }
 
+.p a.span {
+    font-weight: 600;
+}
+
+.line {
+    position: relative;
+    text-align: center;
+    color: var(--text-secondary);
+    margin: 15px 0;
+    font-size: 12px;
+}
+
+.line::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--border-color);
+    z-index: 1;
+}
+
+.line span {
+    position: relative;
+    background: var(--primary-light);
+    padding: 0 10px;
+    z-index: 2;
+}
+
 .btn {
-    margin-top: 10px;
     width: 100%;
-    height: 50px;
-    border-radius: 10px;
+    height: 44px;
+    border-radius: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: 500;
-    gap: 10px;
-    border: 1px solid #ededef;
-    background-color: white;
+    gap: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--primary-light);
+    color: var(--text-primary);
     cursor: pointer;
-    transition: 0.2s ease-in-out;
+    transition: all 0.2s ease;
+    font-size: 13px;
 }
 
 .btn:hover {
-    border: 1px solid #2d79f3;
-;
+    border-color: var(--primary-dark);
+    background: var(--bg-main);
+    color: var(--primary-dark);
 }
 
+.btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.alert {
+    background: rgba(239, 68, 68, 0.05);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 6px;
+    padding: 10px 14px;
+    color: var(--accent-red);
+    font-weight: 500;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+input[type="checkbox"] {
+    cursor: pointer;
+    accent-color: var(--accent-green);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

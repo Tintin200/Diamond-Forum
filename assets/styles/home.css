@@ -1,0 +1,217 @@
+/* ⚾ HOME PAGE PROFILE DRAWER STYLES ⚾ */
+
+.profile-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.profile-toggle-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-primary);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 10;
+}
+
+.profile-toggle-btn:hover {
+    color: var(--accent-green);
+    border-color: var(--accent-green);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(16, 185, 129, 0.15);
+}
+
+.profile-icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Drawer CSS */
+.profile-drawer {
+    position: fixed;
+    top: 0;
+    right: -400px; /* Hidden initially */
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    background: var(--bg-card);
+    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+    z-index: 1000;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-drawer.open {
+    right: 0;
+}
+
+.profile-drawer-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.profile-drawer-backdrop.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.profile-drawer-header {
+    padding: 24px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-drawer-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.profile-close-btn {
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.profile-close-btn:hover {
+    color: var(--accent-red);
+}
+
+.profile-drawer-body {
+    padding: 24px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.profile-avatar-large {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--accent-green);
+    color: white;
+    font-size: 2.2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px auto;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+}
+
+.profile-info-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.profile-info-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.profile-info-value {
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    word-break: break-all;
+}
+
+.profile-roles-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
+.profile-divider {
+    border: 0;
+    height: 1px;
+    background: var(--border-color);
+    margin: 24px 0;
+}
+
+.profile-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.profile-stat-card {
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.profile-stat-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-green);
+}
+
+.profile-stat-icon {
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+}
+
+.profile-stat-number {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+.profile-stat-text {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.btn-logout {
+    display: block;
+    background-color: var(--accent-red);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 6px;
+    padding: 12px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.btn-logout:hover {
+    background-color: #DC2626 !important;
+}
