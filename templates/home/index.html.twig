@@ -2,9 +2,25 @@
 
 {% block title %}Accueil - Diamond Forum{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/home.css') }}">
+{% endblock %}
+
 {% block body %}
 <main>
-    <h1>⚾ Bienvenue sur Diamond Forum</h1>
+    <div class="profile-header-bar">
+        <h1>⚾ Bienvenue sur Diamond Forum</h1>
+        {% if app.user %}
+        <button class="profile-toggle-btn" id="profileToggle" aria-label="Mon Profil">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="profile-icon">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        </button>
+        {% endif %}
+    </div>
+
     <p>Le point de rencontre ultime pour tous les passionnés de baseball. Échangez sur la MLB, vos équipes favorites et les dernières actus du terrain.</p>
 
     <section>
@@ -60,4 +76,105 @@
         </ol>
     </section>
 </main>
+
+{# Profile Sidebar Drawer #}
+<div class="profile-drawer-backdrop" id="profileBackdrop"></div>
+<div class="profile-drawer" id="profileDrawer">
+    <div class="profile-drawer-header">
+        <h2>👤 Informations de Compte</h2>
+        <button class="profile-close-btn" id="profileClose">&times;</button>
+    </div>
+    <div class="profile-drawer-body">
+        {% if app.user %}
+            <div class="profile-avatar-large">
+                {{ app.user.email|slice(0, 1)|upper }}
+            </div>
+            <div class="profile-info-group">
+                <span class="profile-info-label">Email</span>
+                <span class="profile-info-value">{{ app.user.email }}</span>
+            </div>
+            <div class="profile-info-group">
+                <span class="profile-info-label">Rôles</span>
+                <div class="profile-roles-badges">
+                    {% for role in app.user.roles %}
+                        {% set roleLabel = 'Utilisateur' %}
+                        {% set badgeColor = 'var(--accent-green)' %}
+                        
+                        {% if role == 'ROLE_ADMIN' %}
+                            {% set roleLabel = 'Administrateur' %}
+                            {% set badgeColor = 'var(--accent-red)' %}
+                        {% elseif role == 'ROLE_MOD' or role == 'ROLE_MODERATOR' %}
+                            {% set roleLabel = 'Modérateur' %}
+                            {% set badgeColor = 'var(--warning)' %}
+                        {% endif %}
+                        
+                        <span class="badge" style="background-color: {{ badgeColor }}; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">{{ roleLabel }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <hr class="profile-divider">
+            <h3>📊 Activité sur Diamond Forum</h3>
+            <div class="profile-stats-grid">
+                <div class="profile-stat-card">
+                    <span class="profile-stat-icon">✍️</span>
+                    <span class="profile-stat-number">{{ app.user.articles|length }}</span>
+                    <span class="profile-stat-text">Articles</span>
+                </div>
+                <div class="profile-stat-card">
+                    <span class="profile-stat-icon">❤️</span>
+                    <span class="profile-stat-number">{{ app.user.articleLikes|length }}</span>
+                    <span class="profile-stat-text">Likes</span>
+                </div>
+                <div class="profile-stat-card">
+                    <span class="profile-stat-icon">👁️</span>
+                    <span class="profile-stat-number">{{ app.user.articleVues|length }}</span>
+                    <span class="profile-stat-text">Vues</span>
+                </div>
+            </div>
+            <div style="margin-top: 30px;">
+                <a href="{{ path('app_logout') }}" class="btn-logout">Déconnexion</a>
+            </div>
+        {% else %}
+            <div style="text-align: center; padding: 20px 0;">
+                <div class="profile-avatar-large" style="background-color: var(--gray-light); color: var(--text-secondary);">
+                    ?
+                </div>
+                <p style="margin: 20px 0; font-size: 0.95rem; color: var(--text-secondary);">Vous n'êtes pas connecté à votre compte Diamond Forum.</p>
+                <a href="{{ path('app_login') }}" class="btn" style="display: block; text-align: center; text-decoration: none; background-color: var(--accent-green); color: white; border-radius: 6px; padding: 12px; font-weight: 600;">Se Connecter</a>
+                <a href="{{ path('app_register') }}" style="display: inline-block; margin-top: 15px; text-decoration: underline; color: var(--accent-green); font-size: 0.9rem; font-weight: 600;">Créer un compte</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const profileToggle = document.getElementById('profileToggle');
+    const profileClose = document.getElementById('profileClose');
+    const profileDrawer = document.getElementById('profileDrawer');
+    const profileBackdrop = document.getElementById('profileBackdrop');
+
+    function openDrawer() {
+        profileDrawer.classList.add('open');
+        profileBackdrop.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+        profileDrawer.classList.remove('open');
+        profileBackdrop.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    if (profileToggle) {
+        profileToggle.addEventListener('click', openDrawer);
+    }
+    if (profileClose) {
+        profileClose.addEventListener('click', closeDrawer);
+    }
+    if (profileBackdrop) {
+        profileBackdrop.addEventListener('click', closeDrawer);
+    }
+});
+</script>
 {% endblock %}
