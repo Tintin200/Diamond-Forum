@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'Article - Diamond Forum{% endblock %}
+
+{% block body %}
+<main>
+    <div style="max-width: 700px; margin: 0 auto;">
+        <div style="margin-bottom: 30px;">
+            <a href="{{ path('app_news') }}" style="display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); font-weight: 500;">
+                ← Retour aux Actualités
+            </a>
+        </div>
+
+        <h1>Modifier l'article</h1>
+        <p>Modifiez vos analyses, actualités ou récits de match ci-dessous.</p>
+
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert {{ label == 'error' ? 'alert-danger' : (label == 'success' ? 'success' : 'warning') }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <div class="card">
+            {{ form_start(form) }}
+                <div class="form-group" style="margin-bottom: 20px;">
+                    {{ form_label(form.sujet) }}
+                    {{ form_widget(form.sujet) }}
+                    {{ form_errors(form.sujet) }}
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    {{ form_label(form.contenu) }}
+                    {{ form_widget(form.contenu) }}
+                    {{ form_errors(form.contenu) }}
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    {{ form_label(form.tags) }}
+                    {{ form_widget(form.tags) }}
+                    <span style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-top: -10px; margin-bottom: 10px;">
+                        Séparez les tags par des virgules (ex: Transfert, MLB, Yankees).
+                    </span>
+                    {{ form_errors(form.tags) }}
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    {{ form_label(form.image) }}
+                    {{ form_widget(form.image) }}
+                    <span style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-top: -10px; margin-bottom: 10px;">
+                        URL de l'image (ex: https://images.unsplash.com/photo-1544045560-72970a759344).
+                    </span>
+                    {{ form_errors(form.image) }}
+                </div>
+
+                <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: flex-end; align-items: center;">
+                    <a href="{{ path('app_news') }}" class="btn secondary">Annuler</a>
+                    <button type="submit" class="btn">Enregistrer les modifications</button>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</main>
+{% endblock %}

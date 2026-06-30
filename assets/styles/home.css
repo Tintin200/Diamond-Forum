@@ -215,3 +215,69 @@
 .btn-logout:hover {
     background-color: #DC2626 !important;
 }
+
+/* ⚾ LIVE GAMES STYLES ⚾ */
+.game-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px !important;
+    gap: 12px;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-bottom: 4px;
+}
+
+.game-time {
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.game-teams {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px 0;
+}
+
+.team {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.team-logo {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    background-color: var(--bg-main);
+    padding: 2px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.team-name {
+    flex: 1;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.team-score {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    min-width: 24px;
+    text-align: right;
+}
+
