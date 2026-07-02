@@ -4,48 +4,98 @@
 
 {% block body %}
 <main>
-    <h1>📡 Actualités et Décryptages du Terrain</h1>
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert {{ label == 'error' ? 'alert-danger' : (label == 'success' ? 'success' : 'warning') }}" style="margin-bottom: 20px;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;">
+        <h1 style="margin: 0;">📡 Actualités et Décryptages du Terrain</h1>
+        <a href="{{ path('app_article_new') }}" class="btn">✍️ Publier un Article</a>
+    </div>
     <p>Découvrez les dernières dépêches, rumeurs de transfert et résumés de matchs analysés par nos experts.</p>
 
+    {% if headlineArticles is not empty %}
     <section>
-        <h2>À la Une</h2>
-
-        <article class="card mb">
-            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
-                <div>
-                    <span class="badge primary">Choc Transfert</span>
+        <h2>À la Une (Officiel)</h2>
+        {% for article in headlineArticles %}
+            <article class="card mb">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                    <div>
+                        {% if article.tags %}
+                            {% for tag in article.tags|split(',') %}
+                                <span class="badge primary">{{ tag|trim }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <span class="badge primary">À la Une</span>
+                        {% endif %}
+                    </div>
+                    <span class="text-secondary" style="font-size: 0.9rem;">Publié par <strong>{{ article.auteur }}</strong></span>
                 </div>
-                <span class="text-secondary" style="font-size: 0.9rem;">Aujourd'hui</span>
-            </div>
-            <h3>Adieu à Ohtani : Les Dodgers vendent Ohtani aux Yankees</h3>
-            <p>Dans ce qui s'annonce comme l'un des mouvements les plus spectaculaires de la décennie, les Dodgers de Los Angeles ont confirmé l'accord de transfert envoyant la superstar Shohei Ohtani sous les couleurs mythiques des New York Yankees. Les fans du Bronx retiennent déjà leur souffle.</p>
-            <a href="#" style="font-weight: 600; color: var(--accent-green);">Lire l'article complet →</a>
-        </article>
-
-        <article class="card mb">
-            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
-                <div>
-                    <span class="badge">Série Mondiale</span>
-                </div>
-                <span class="text-secondary" style="font-size: 0.9rem;">Hier</span>
-            </div>
-            <h3>Célébration à Boston : Les Red Sox remportent la Série Mondiale</h3>
-            <p>Une soirée historique au Fenway Park. Les Boston Red Sox ont décroché le titre suprême au terme d'un match 7 d'anthologie contre les Houston Astros. Une victoire célébrée dans toute la ville sous un déluge de confettis.</p>
-            <a href="#" style="font-weight: 600; color: var(--accent-green);">Lire l'article complet →</a>
-        </article>
-
-        <article class="card mb">
-            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
-                <div>
-                    <span class="badge">Ambiance</span>
-                </div>
-                <span class="text-secondary" style="font-size: 0.9rem;">Il y a 2 jours</span>
-            </div>
-            <h3>L'ambiance est à son comble au Yankee Stadium</h3>
-            <p>Le mythique stade new-yorkais affiche complet pour le début des playoffs. Entre les chants des supporters et l'odeur des hot-dogs traditionnels, l'atmosphère de ce premier match contre les Red Sox était tout simplement électrique.</p>
-            <a href="#" style="font-weight: 600; color: var(--accent-green);">Lire l'article complet →</a>
-        </article>
+                {% if article.image %}
+                    <div style="margin-bottom: 15px; border-radius: 8px; overflow: hidden; max-height: 350px;">
+                        <img src="{{ article.image }}" alt="{{ article.sujet }}" style="width: 100%; height: auto; object-fit: cover;" />
+                    </div>
+                {% endif %}
+                <h3 style="font-size: 1.3rem; margin-bottom: 10px; color: var(--primary-dark);">{{ article.sujet }}</h3>
+                <p style="white-space: pre-line; color: var(--text-secondary);">{{ article.contenu }}</p>
+                {% if app.user and (article.author == app.user or is_granted('ROLE_ADMIN')) %}
+                    <div style="display: flex; gap: 10px; margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 15px; justify-content: flex-end;">
+                        <a href="{{ path('app_article_edit', {id: article.id}) }}" class="btn primary" style="font-size: 0.85rem; padding: 6px 12px; background-color: var(--accent-green);">✏️ Modifier</a>
+                        
+                        <form method="post" action="{{ path('app_article_delete', {id: article.id}) }}" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet article ? Cette action est irréversible.');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+                            <button type="submit" class="btn danger" style="font-size: 0.85rem; padding: 6px 12px; background-color: var(--accent-red); color: white; border: none; cursor: pointer; border-radius: 6px; font-weight: 600;">🗑️ Supprimer</button>
+                        </form>
+                    </div>
+                {% endif %}
+            </article>
+        {% endfor %}
     </section>
+    {% endif %}
+
+    {% if communityArticles is not empty %}
+    <section>
+        <h2>Publications de la Communauté</h2>
+        {% for article in communityArticles %}
+            <article class="card mb">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                    <div>
+                        {% if article.tags %}
+                            {% for tag in article.tags|split(',') %}
+                                <span class="badge primary">{{ tag|trim }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <span class="badge primary">Article</span>
+                        {% endif %}
+                    </div>
+                    <span class="text-secondary" style="font-size: 0.9rem;">Publié par <strong>{{ article.auteur }}</strong></span>
+                </div>
+                {% if article.image %}
+                    <div style="margin-bottom: 15px; border-radius: 8px; overflow: hidden; max-height: 350px;">
+                        <img src="{{ article.image }}" alt="{{ article.sujet }}" style="width: 100%; height: auto; object-fit: cover;" />
+                    </div>
+                {% endif %}
+                <h3 style="font-size: 1.3rem; margin-bottom: 10px; color: var(--primary-dark);">{{ article.sujet }}</h3>
+                <p style="white-space: pre-line; color: var(--text-secondary);">{{ article.contenu }}</p>
+                {% if app.user and (article.author == app.user or is_granted('ROLE_ADMIN')) %}
+                    <div style="display: flex; gap: 10px; margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 15px; justify-content: flex-end;">
+                        <a href="{{ path('app_article_edit', {id: article.id}) }}" class="btn primary" style="font-size: 0.85rem; padding: 6px 12px; background-color: var(--accent-green);">✏️ Modifier</a>
+                        
+                        <form method="post" action="{{ path('app_article_delete', {id: article.id}) }}" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet article ? Cette action est irréversible.');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+                            <button type="submit" class="btn danger" style="font-size: 0.85rem; padding: 6px 12px; background-color: var(--accent-red); color: white; border: none; cursor: pointer; border-radius: 6px; font-weight: 600;">🗑️ Supprimer</button>
+                        </form>
+                    </div>
+                {% endif %}
+            </article>
+        {% endfor %}
+    </section>
+    {% endif %}
+
 
     <section>
         <h2>Catégories Populaires</h2>
