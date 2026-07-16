@@ -1,0 +1,54 @@
+{% macro standingsTable(title, flag, teams, accent) %}
+    <div class="df-standings-table" data-reveal>
+        <div class="df-standings-table__title">
+            <span>{{ flag }}</span>
+            <h3>{{ title }}</h3>
+        </div>
+
+        {% if teams is empty %}
+            <div class="df-standings-empty">Aucune donnée disponible.</div>
+        {% else %}
+            <div class="df-standings-row-head">
+                <span>POS</span>
+                <span>FRANCHISE</span>
+                <span style="text-align:center;">V</span>
+                <span style="text-align:center;">D</span>
+                <span style="text-align:right;">%</span>
+            </div>
+            {% for item in teams %}
+                <div class="df-standings-row">
+                    <span class="df-standings-row__pos" style="background:{{ item.position <= 3 ? accent : 'transparent' }}; color:{{ item.position <= 3 ? '#000000' : 'rgba(0,0,0,0.4)' }};">
+                        {{ item.position }}
+                    </span>
+                    <div class="df-standings-row__team">
+                        <span class="df-standings-row__logo" style="background:{{ accent }};">
+                            {% if item.team.logo %}<img src="{{ item.team.logo }}" alt="{{ item.team.name }}">{% endif %}
+                        </span>
+                        <span class="df-standings-row__name">{{ item.team.name }}</span>
+                    </div>
+                    <span class="df-standings-row__wins">{{ item.games.win.total }}</span>
+                    <span class="df-standings-row__losses">{{ item.games.lose.total }}</span>
+                    <span class="df-standings-row__pct">{{ item.games.win.percentage }}</span>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endmacro %}
+
+<section id="classement" class="df-section--dark">
+    <div class="df-glow-top"></div>
+    <div class="df-container">
+        <div class="df-heading-block" data-reveal>
+            <span class="df-eyebrow df-eyebrow--light">SAISON {{ standingsSeason }}</span>
+            <h2 class="df-section-title" style="color:#fff;">Classement Général de la MLB</h2>
+            <p class="df-section-sub df-text-center" style="color:rgba(255,255,255,0.6);">
+                Les positions des franchises majeures des Ligues Américaine et Nationale.
+            </p>
+        </div>
+
+        <div class="df-grid df-grid--2">
+            {{ _self.standingsTable('Ligue Américaine (AL)', '🇺🇸', americanLeague, '#FFF200') }}
+            {{ _self.standingsTable('Ligue Nationale (NL)', '🦅', nationalLeague, '#10B981') }}
+        </div>
+    </div>
+</section>

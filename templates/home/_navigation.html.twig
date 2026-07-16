@@ -1,0 +1,41 @@
+<nav class="df-nav" data-landing-target="nav">
+    <div class="df-nav__inner">
+        <a href="{{ path('app_home') }}" class="df-nav__logo">
+            <span class="df-nav__logo-badge">⚾</span>
+            <span class="df-nav__logo-text">
+                <span class="df-white">Diamond</span><span class="df-accent"> Forum</span>
+            </span>
+        </a>
+
+        <div class="df-nav__links">
+            <a href="{{ path('app_home')}}">Accueil</a>
+            <a href="{{ path('app_chat')}}">Forum</a>
+            <a href="{{ path('app_news')}}">News</a>
+            <a href="{{ path('app_about') }}">A Propos</a>
+            <a href="#starter">Boutique</a>
+        </div>
+
+        {% if app.user %}
+            <a href="{{ path('app_chat') }}" class="df-btn df-btn--primary df-nav__cta">Accéder au forum</a>
+        {% else %}
+            <a href="{{ path('app_login') }}" class="df-btn df-btn--primary df-nav__cta">Connexion</a>
+        {% endif %}
+
+        <button type="button" class="df-nav__burger" data-action="landing#toggleMobileMenu" aria-label="Ouvrir le menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+        </button>
+    </div>
+
+    <div class="df-nav__mobile" data-landing-target="mobileMenu">
+        <a href="{{ path('app_home')}}">Accueil</a>
+        <a href="{{ path('app_chat')}}">Forum</a>
+        <a href="{{ path('app_news')}}">News</a>
+        <a href="{{ path('app_about') }}">A Propos</a>
+        <a href="#starter">Boutique</a>
+        {% if app.user %}
+            <a href="{{ path('app_chat') }}" class="df-btn df-btn--primary">Accéder au forum</a>
+        {% else %}
+            <a href="{{ path('app_login') }}" class="df-btn df-btn--primary">Connexion</a>
+        {% endif %}
+    </div>
+</nav>

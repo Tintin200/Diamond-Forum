@@ -1,265 +1,369 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-/* ⚾ LOGIN / SIGNUP STYLES ⚾ */
 
 :root {
-    --primary-dark: #000000;         /* Noir */
-    --primary-light: #FFFFFF;        /* Blanc */
-    --accent-green: #10B981;         /* Vert */
-    --accent-red: #EF4444;           /* Rouge */
-    --gray-light: #E5E7EB;           /* Gris Clair */
-    --bg-main: #F9FAFB;              /* Light Background */
-    --text-primary: #111827;         /* Dark Text */
-    --text-secondary: #4B5563;       /* Muted Text */
-    --border-color: #E5E7EB;
+    --df-yellow: #fff200;
+    --df-green: #10b981;
+    --df-black: #000000;
+    --df-red: #ef4444;
+    --df-gray: #e5e7eb;
+    --df-font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+html, body {
+    height: 100%;
     margin: 0;
-    background-color: var(--bg-main);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: 0;
+    background: var(--df-black);
+}
+
+.df-login {
+    min-height: 100vh;
+    width: 100%;
+    background: var(--df-black);
+    color: var(--df-gray);
+    font-family: var(--df-font-sans);
+}
+
+.df-login * {
+    box-sizing: border-box;
+}
+
+.df-login__grid {
+    display: grid;
+    min-height: 100vh;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+    .df-login__grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ---------- Panneau visuel (gauche, masqué en mobile) ---------- */
+.df-login__visual {
     position: relative;
+    display: none;
     overflow: hidden;
 }
 
-.form {
+@media (min-width: 1024px) {
+    .df-login__visual {
+        display: block;
+    }
+}
+
+.df-login__visual img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.df-login__visual-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.7) 45%, transparent 100%);
+}
+
+.df-login__visual-content {
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px;
+}
+
+.df-login__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.df-login__brand-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: var(--df-yellow);
+    color: var(--df-black);
+    font-weight: 900;
+    font-size: 1.1rem;
+}
+
+.df-login__brand-name {
+    font-size: 1.25rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--df-gray);
+}
+
+.df-login__pitch {
+    max-width: 28rem;
+}
+
+.df-login__pitch-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--df-green);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+}
+
+.df-login__pitch-badge::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--df-green);
+}
+
+.df-login__pitch h2 {
+    font-size: 2.25rem;
+    font-weight: 900;
+    line-height: 1.15;
+    color: var(--df-gray);
+}
+
+.df-login__pitch h2 .df-accent {
+    color: var(--df-yellow);
+}
+
+.df-login__pitch p {
+    margin-top: 16px;
+    line-height: 1.6;
+    color: rgba(229, 231, 235, 0.7);
+}
+
+/* ---------- Panneau formulaire (droite) ---------- */
+.df-login__form-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+}
+
+.df-login__form-wrap {
+    width: 100%;
+    max-width: 24rem;
+}
+
+.df-login__mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+@media (min-width: 1024px) {
+    .df-login__mobile-brand {
+        display: none;
+    }
+}
+
+.df-login__mobile-brand .df-login__brand-badge {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+}
+
+.df-login__form-wrap h1 {
+    font-size: 1.875rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--df-gray);
+}
+
+.df-login__form-wrap > p {
+    margin-top: 8px;
+    line-height: 1.6;
+    color: rgba(229, 231, 235, 0.6);
+}
+
+.df-login__alert {
+    margin-top: 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--df-red);
+    font-size: 0.875rem;
+    padding: 10px 12px;
+    border-radius: 8px;
+}
+
+.df-login__alert svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.df-login__form {
+    margin-top: 32px;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background: var(--primary-light);
-    padding: 40px;
-    width: 100%;
-    max-width: 400px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-    border: 1px solid var(--border-color);
-    position: relative;
-    z-index: 1;
-    animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Add a subtle green bar on top of the login card */
-.form::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: var(--accent-green);
-    border-radius: 8px 8px 0 0;
-}
-
-.form h1 {
-    text-align: center;
-    color: var(--primary-dark);
-    margin-bottom: 5px;
-    font-size: 20px; /* Inter Heading */
-    font-weight: 700;
-    letter-spacing: -0.025em;
-}
-
-.form > p:first-of-type {
-    text-align: center;
-    color: var(--text-secondary);
-    margin-top: -15px;
-    font-size: 13px; /* Inter Small */
-}
-
-::placeholder {
-    color: #9CA3AF;
-    font-family: inherit;
-}
-
-.flex-column > label {
-    color: var(--primary-dark);
-    font-weight: 500;
-    margin-bottom: 6px;
-    font-size: 14px; /* Inter Label */
-}
-
-.inputForm {
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    height: 44px;
+.df-login__field {
     display: flex;
-    align-items: center;
-    padding: 0 14px;
-    transition: all 0.2s ease;
-    background: var(--primary-light);
-}
-
-.input {
-    border: none;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    color: var(--text-primary);
-    font-size: 14px;
-    font-family: inherit;
-}
-
-.input:focus {
-    outline: none;
-}
-
-.inputForm:focus-within {
-    border-color: var(--accent-green);
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
-}
-
-.inputForm svg {
-    fill: var(--text-secondary);
-    margin-right: 10px;
-    width: 16px;
-    height: 16px;
-}
-
-.flex-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    justify-content: space-between;
-    margin-top: 5px;
-}
-
-.flex-row > div > label {
-    font-size: 13px;
-    color: var(--text-secondary);
-    font-weight: 400;
-    cursor: pointer;
-}
-
-.span {
-    font-size: 13px;
-    color: var(--accent-green);
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.span:hover {
-    color: #059669;
-    text-decoration: underline;
-}
-
-.button-submit {
-    margin-top: 10px;
-    background: var(--primary-dark);
-    border: none;
-    color: var(--primary-light);
-    font-size: 14px; /* Inter Label */
-    font-weight: 500;
-    border-radius: 6px;
-    height: 44px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    letter-spacing: 0.025em;
-}
-
-.button-submit:hover {
-    background: #1F2937;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.button-submit:active {
-    transform: translateY(0);
-}
-
-.p {
-    text-align: center;
-    color: var(--text-secondary);
-    font-size: 13px;
-    margin: 5px 0;
-}
-
-.p a.span {
-    font-weight: 600;
-}
-
-.line {
-    position: relative;
-    text-align: center;
-    color: var(--text-secondary);
-    margin: 15px 0;
-    font-size: 12px;
-}
-
-.line::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: var(--border-color);
-    z-index: 1;
-}
-
-.line span {
-    position: relative;
-    background: var(--primary-light);
-    padding: 0 10px;
-    z-index: 2;
-}
-
-.btn {
-    width: 100%;
-    height: 44px;
-    border-radius: 6px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 500;
+    flex-direction: column;
     gap: 8px;
-    border: 1px solid var(--border-color);
-    background: var(--primary-light);
-    color: var(--text-primary);
+}
+
+.df-login__field-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.df-login__field label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--df-gray);
+}
+
+.df-login__field-head a {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--df-green);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.df-login__field-head a:hover {
+    color: var(--df-yellow);
+}
+
+.df-login__input-wrap {
+    position: relative;
+}
+
+.df-login__input-wrap svg.df-icon-left {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(229, 231, 235, 0.4);
+    pointer-events: none;
+}
+
+.df-login__input-wrap input {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid rgba(229, 231, 235, 0.15);
+    background: rgba(229, 231, 235, 0.04);
+    color: var(--df-gray);
+    padding: 12px 12px 12px 40px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.df-login__input-wrap input::placeholder {
+    color: rgba(229, 231, 235, 0.3);
+}
+
+.df-login__input-wrap input:focus {
+    border-color: var(--df-green);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+}
+
+.df-login__input-wrap input.has-toggle {
+    padding-right: 44px;
+}
+
+.df-login__toggle-visibility {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    border-radius: 6px;
+    color: rgba(229, 231, 235, 0.5);
     cursor: pointer;
-    transition: all 0.2s ease;
-    font-size: 13px;
+    transition: color 0.2s ease;
 }
 
-.btn:hover {
-    border-color: var(--primary-dark);
-    background: var(--bg-main);
-    color: var(--primary-dark);
+.df-login__toggle-visibility:hover {
+    color: var(--df-gray);
 }
 
-.btn svg {
+.df-login__remember {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    color: rgba(229, 231, 235, 0.7);
+    cursor: pointer;
+}
+
+.df-login__remember input {
     width: 16px;
     height: 16px;
+    border-radius: 4px;
+    accent-color: var(--df-green);
+    background: transparent;
+    border: 1px solid rgba(229, 231, 235, 0.3);
 }
 
-.alert {
-    background: rgba(239, 68, 68, 0.05);
-    border: 1px solid rgba(239, 68, 68, 0.2);
-    border-radius: 6px;
-    padding: 10px 14px;
-    color: var(--accent-red);
-    font-weight: 500;
-    margin-bottom: 10px;
-    font-size: 13px;
-}
-
-input[type="checkbox"] {
+.df-login__submit {
+    margin-top: 4px;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    background: var(--df-yellow);
+    color: var(--df-black);
+    padding: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
     cursor: pointer;
-    accent-color: var(--accent-green);
+    transition: filter 0.2s ease;
 }
 
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.df-login__submit:hover {
+    filter: brightness(0.95);
+}
+
+.df-login__submit:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 242, 0, 0.5);
+}
+
+.df-login__footer-text {
+    margin-top: 32px;
+    text-align: center;
+    font-size: 0.875rem;
+    color: rgba(229, 231, 235, 0.6);
+}
+
+.df-login__footer-text a {
+    font-weight: 700;
+    color: var(--df-yellow);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.df-login__footer-text a:hover {
+    color: var(--df-green);
 }
