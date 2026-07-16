@@ -1,0 +1,57 @@
+<section id="scores" class="df-section--light">
+    <div class="df-container">
+        <div class="df-heading-block" data-reveal>
+            <span class="df-eyebrow">EN TEMPS RÉEL</span>
+            <h2 class="df-section-title">Matchs & Scores du Jour</h2>
+            <p class="df-section-sub df-text-center">Suis les rencontres de la MLB manche par manche, où que tu sois.</p>
+        </div>
+
+        <div class="df-grid df-grid--3">
+            {% for game in games %}
+                {% set isLive = game.status.short in ['LIVE', 'IN_PROGRESS'] or 'LIVE' in game.status.short %}
+                {% set isFinished = game.status.short in ['FT', 'FINISHED'] or 'Finished' in game.status.long %}
+                {% set homeScore = game.scores.home.total %}
+                {% set awayScore = game.scores.away.total %}
+                {% set homeWins = isFinished and homeScore is not null and awayScore is not null and homeScore > awayScore %}
+                {% set awayWins = isFinished and homeScore is not null and awayScore is not null and awayScore > homeScore %}
+
+                <div class="df-match-card" data-reveal>
+                    <div class="df-match-card__header">
+                        <span class="df-match-card__status"
+                              style="background:{{ isLive ? 'rgba(239,68,68,0.12)' : (isFinished ? 'rgba(16,185,129,0.12)' : 'rgba(255,242,0,0.9)') }};
+                                     color:{{ isLive ? '#EF4444' : (isFinished ? '#10B981' : '#000000') }};">
+                            <span class="df-match-card__status-dot" style="background:{{ isLive ? '#EF4444' : (isFinished ? '#10B981' : '#000000') }};"></span>
+                            {{ isLive ? 'LIVE · ' ~ game.time : (isFinished ? 'Terminé' : 'Aujourd\'hui · ' ~ game.time) }}
+                        </span>
+                        <span class="df-match-card__league">🏆 {{ game.league.name }}</span>
+                    </div>
+
+                    <div class="df-team-row">
+                        <div class="df-team-row__left">
+                            <span class="df-team-row__logo">
+                                {% if game.teams.away.logo %}<img src="{{ game.teams.away.logo }}" alt="{{ game.teams.away.name }}">{% endif %}
+                            </span>
+                            <span class="df-team-row__name">{{ game.teams.away.name }}</span>
+                        </div>
+                        <span class="df-team-row__score">{{ awayScore is not null ? awayScore : '-' }}</span>
+                    </div>
+                    <div class="df-team-row">
+                        <div class="df-team-row__left">
+                            <span class="df-team-row__logo">
+                                {% if game.teams.home.logo %}<img src="{{ game.teams.home.logo }}" alt="{{ game.teams.home.name }}">{% endif %}
+                            </span>
+                            <span class="df-team-row__name">{{ game.teams.home.name }}</span>
+                        </div>
+                        <span class="df-team-row__score">{{ homeScore is not null ? homeScore : '-' }}</span>
+                    </div>
+
+                    {% if isLive %}
+                        <div class="df-match-card__live-bar"></div>
+                    {% endif %}
+                </div>
+            {% else %}
+                <p>Aucun match aujourd'hui.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>

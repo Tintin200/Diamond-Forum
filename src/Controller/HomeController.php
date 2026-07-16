@@ -79,7 +79,6 @@ class HomeController extends AbstractController
             ];
         }
 
-        // Try to fetch today's standings
         $standingsResult = $baseballApiService->getMostRecentStandings();
         $season = $standingsResult['season'];
         $standingsData = $standingsResult['data'];
@@ -90,19 +89,16 @@ class HomeController extends AbstractController
         if (!empty($standingsData)) {
             foreach ($standingsData as $item) {
                 $groupName = $item['group']['name'] ?? '';
-                // Check if group is American League or National League
                 if (str_contains($groupName, 'American')) {
                     $americanLeague[] = $item;
                 } else {
                     $nationalLeague[] = $item;
                 }
             }
-            // Sort by position
             usort($americanLeague, fn($a, $b) => $a['position'] <=> $b['position']);
             usort($nationalLeague, fn($a, $b) => $a['position'] <=> $b['position']);
         }
 
-        // Fallback mock standings if API returned empty
         if (empty($americanLeague) && empty($nationalLeague)) {
             $season = 2024;
             $americanLeague = [
@@ -122,24 +118,25 @@ class HomeController extends AbstractController
                 ['position' => 6, 'team' => ['name' => 'New York Mets', 'logo' => 'https://media.api-sports.io/baseball/teams/24.png'], 'games' => ['win' => ['total' => 89], 'lose' => ['total' => 73], 'win' => ['percentage' => '.549']]],
             ];
         } else {
-            // Take top 6 teams for display brevity
             $americanLeague = array_slice($americanLeague, 0, 6);
             $nationalLeague = array_slice($nationalLeague, 0, 6);
         }
 
-        // Fetch actual statistics from database
         $userCount = $userRepository->count([]);
         $articleCount = $articleRepository->count([]);
         $likeCount = $articleLikeRepository->count([]);
 
+        $latestArticles = $articleRepository->findBy([], ['id' => 'DESC'], 3);
+
         return $this->render('home/index.html.twig', [
-            'games' => array_slice($games, 0, 4),
+            'games' => array_slice($games, 0, 3),
             'americanLeague' => $americanLeague,
             'nationalLeague' => $nationalLeague,
             'standingsSeason' => $season,
             'userCount' => $userCount,
             'articleCount' => $articleCount,
             'likeCount' => $likeCount,
+            'latestArticles' => $latestArticles,
         ]);
     }
 }

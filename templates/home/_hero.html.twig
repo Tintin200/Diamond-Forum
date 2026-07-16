@@ -1,0 +1,44 @@
+<section id="hero" class="df-hero">
+    <div class="df-hero__bg">
+        <img src="{{ asset('images/landing/baseball-stadium-crowd-night.png') }}" alt="Stade de baseball rempli sous les projecteurs">
+    </div>
+    <div class="df-hero__overlay-1"></div>
+    <div class="df-hero__overlay-2"></div>
+    <div class="df-hero__glow"></div>
+
+    <div class="df-hero__content">
+        <div class="df-hero__copy" data-reveal>
+            <span class="df-badge-live">
+                <span class="df-badge-live__dot"></span>
+                COMMUNAUTÉ BASEBALL #1
+            </span>
+
+            <h1>BIENVENUE SUR</h1>
+            <h1><span class="df-accent">DIAMOND FORUM</span></h1>
+
+            <p class="df-lead">
+                Le point de rencontre ultime des passionnés de baseball. Scores en direct, classements MLB,
+                et le meilleur équipement pour débuter.
+            </p>
+
+            <div class="df-hero__actions">
+                <a href="{{ app.user ? path('app_chat') : path('app_register') }}" class="df-btn df-btn--primary">
+                    Rejoindre le forum
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+                <a href="#scores" class="df-btn df-btn--outline">Voir les scores</a>
+            </div>
+
+            <div class="df-hero__benefits">
+                <span>Scores en direct</span>
+                <span>Classement MLB</span>
+                <span>Articles fans</span>
+                <span>Kits débutants</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="df-hero__scroll">
+        <div class="df-hero__scroll-pill"><span></span></div>
+    </div>
+</section>
