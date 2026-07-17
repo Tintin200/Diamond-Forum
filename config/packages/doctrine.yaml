@@ -1,8 +1,10 @@
 doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
-        options:
-            1002: "SET SESSION sql_mode='TRADITIONAL'"
+        # L'option 1002 (SET SESSION sql_mode='TRADITIONAL') a été retirée :
+        # c'est une option spécifique au driver pdo_mysql, incompatible avec
+        # pdo_pgsql utilisé sur Render Postgres. Si tu redéploies un jour sur
+        # MySQL, tu peux la remettre ici.
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
         #server_version: '16'
