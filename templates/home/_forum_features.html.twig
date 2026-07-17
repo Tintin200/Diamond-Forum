@@ -1,0 +1,83 @@
+<section id="forum" class="df-section--light">
+    <div class="df-container">
+        <div class="df-heading-block" data-reveal>
+            <span class="df-eyebrow">LA COMMUNAUTÉ</span>
+            <h2 class="df-section-title">Fonctionnalités du Forum</h2>
+        </div>
+
+        <div class="df-grid df-grid--3">
+            <div class="df-feature-card" data-reveal>
+                <div class="df-feature-card__icon">💬</div>
+                <h3>Discussions Bleachers</h3>
+                <p>Échangez avec une communauté de fans passionnés. Débattez sur les matchs d'hier soir, les transferts et les stratégies de jeu.</p>
+                <a href="{{ path('app_chat') }}" class="df-feature-card__cta">
+                    Accéder au Forum
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+            </div>
+
+            <div class="df-feature-card" data-reveal>
+                <div class="df-feature-card__icon">📡</div>
+                <h3>Actualités de la MLB</h3>
+                <p>Restez informé avec des analyses de matchs, des rapports de blessures et les scoops les plus chauds des ligues majeures.</p>
+                <a href="{{ path('app_news') }}" class="df-feature-card__cta">
+                    Lire les Actus
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+            </div>
+
+            <div class="df-feature-card" data-reveal>
+                <div class="df-feature-card__icon">🏟️</div>
+                <h3>Guide des Stades</h3>
+                <p>Découvrez l'histoire des temples du baseball, du Fenway Park au Yankee Stadium, et partagez vos visites sur votre profil.</p>
+                <a href="{{ path('app_about') }}" class="df-feature-card__cta">
+                    En savoir plus
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="df-stats-bar" data-reveal>
+            <div class="df-stats-bar__item">
+                <span class="df-stats-bar__icon">👥</span>
+                <span class="df-stats-bar__value">{{ userCount }}</span>
+                <span class="df-stats-bar__label">Fans Actifs</span>
+            </div>
+            <div class="df-stats-bar__item">
+                <span class="df-stats-bar__icon">💬</span>
+                <span class="df-stats-bar__value">{{ articleCount }}</span>
+                <span class="df-stats-bar__label">Sujets de Discussion</span>
+            </div>
+            <div class="df-stats-bar__item">
+                <span class="df-stats-bar__icon">❤️</span>
+                <span class="df-stats-bar__value">{{ likeCount }}</span>
+                <span class="df-stats-bar__label">Appréciations Partagées</span>
+            </div>
+        </div>
+
+        <h3 class="df-steps-title" data-reveal>Comment commencer ?</h3>
+
+        <div class="df-steps-grid">
+            <div class="df-step-card" data-reveal>
+                <span class="df-step-card__num">1</span>
+                <h4>Créez votre profil de Fan</h4>
+                <p>Configurez vos préférences et sélectionnez vos franchises favorites (Yankees, Red Sox, Dodgers...).</p>
+            </div>
+            <div class="df-step-card" data-reveal>
+                <span class="df-step-card__num">2</span>
+                <h4>Rejoignez la discussion</h4>
+                <p>Donnez votre avis dans les salons d'avant-match et commentez les manches en direct.</p>
+            </div>
+            <div class="df-step-card" data-reveal>
+                <span class="df-step-card__num">3</span>
+                <h4>Découvrez les actus</h4>
+                <p>Parcourez les derniers articles publiés par nos rédacteurs et la communauté.</p>
+            </div>
+            <div class="df-step-card" data-reveal>
+                <span class="df-step-card__num">4</span>
+                <h4>Marquez vos favoris</h4>
+                <p>Aimez des articles et gérez la liste des stades que vous avez visités.</p>
+            </div>
+        </div>
+    </div>
+</section>

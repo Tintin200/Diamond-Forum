@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Diamond Forum{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('styles/landing.css') }}">
+{% endblock %}
+
+{# La landing page a sa propre navigation (ancre, style plein écran).
+   On garde quand même le menu applicatif existant (block navbar par défaut,
+   utile une fois connecté / sur les autres pages) en plus de celle-ci. #}
+{% block navbar %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+<div class="df-landing" data-controller="landing">
+    {% include 'home/_navigation.html.twig' %}
+    {% include 'home/_hero.html.twig' %}
+    {% include 'home/_live_scores.html.twig' %}
+    {% include 'home/_standings.html.twig' %}
+    {% include 'home/_forum_features.html.twig' %}
+    {% include 'home/_articles.html.twig' %}
+    {% include 'home/_starter_pack.html.twig' %}
+    {% include 'home/_footer.html.twig' %}
+</div>
+{% endblock %}

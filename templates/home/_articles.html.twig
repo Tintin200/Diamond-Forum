@@ -1,0 +1,36 @@
+<section id="articles" class="df-section--dark">
+    <div class="df-container">
+        <div class="df-articles-head" data-reveal>
+            <div>
+                <span class="df-eyebrow df-eyebrow--light">PUBLIÉ PAR LA COMMUNAUTÉ</span>
+                <h2 class="df-section-title" style="color:#fff;">Les Actus du Diamant</h2>
+            </div>
+            <a href="{{ path('app_article_new') }}" class="df-btn df-btn--primary">Publier un article</a>
+        </div>
+
+        <div class="df-grid df-grid--3">
+            {% for article in latestArticles %}
+                <a href="{{ path('app_news') }}" class="df-article-card" data-reveal>
+                    <div class="df-article-card__image">
+                        <img src="{{ article.image ?: asset('images/landing/baseball-batter-swinging-action.png') }}" alt="{{ article.sujet }}">
+                        {% if article.tags %}
+                            <span class="df-article-card__tag">{{ article.tags|split(',')|first|trim }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="df-article-card__body">
+                        <h3>{{ article.sujet }}</h3>
+                        <div class="df-article-card__meta">
+                            <span>@{{ article.auteur }}</span>
+                            <div class="df-article-card__meta-right">
+                                <span>❤️ {{ article.articleLikes|length }}</span>
+                                <span>👁️ {{ article.articleVues|length }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            {% else %}
+                <p style="color:rgba(255,255,255,0.6);">Aucun article publié pour le moment. Soyez le premier !</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>

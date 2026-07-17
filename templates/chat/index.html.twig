@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Forum - Diamond Forum{% endblock %}
+
+{% block body %}
+<main>
+    <h1>💬 Forum des Passionnés</h1>
+    <p>Échangez en direct avec la communauté de Diamond Forum sur tous les sujets chauds du baseball et de la MLB.</p>
+
+    <section>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h2 style="margin: 0;">Salons de Discussion</h2>
+            <button class="btn">Créer un Sujet</button>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>⚾ Actualité MLB (Ligue Majeure)</h3>
+                <p class="text-secondary">Discussions en direct sur les rencontres de la saison régulière, les playoffs et le repêchage annuel.</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                    <span class="badge primary">{{ mlbCount }} posts</span>
+                    <a href="{{ path('app_news') }}">Explorer →</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🔄 Mercato & Rumeurs de Transfert</h3>
+                <p class="text-secondary">Suivi des agents libres, des prolongations de contrats et des négociations d'échange de joueurs stars.</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                    <span class="badge primary">{{ mercatoCount }} posts</span>
+                    <a href="{{ path('app_news') }}">Explorer →</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📊 Guides & Analyses Tactiques</h3>
+                <p class="text-secondary">Décryptages et statistiques avancées (sabermetrics), techniques de lancer et conseils de jeu.</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                    <span class="badge primary">{{ guideCount }} posts</span>
+                    <a href="{{ path('app_news') }}">Explorer →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Discussions Récentes</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Sujet</th>
+                    <th>Auteur</th>
+                    <th style="text-align: center;">Likes</th>
+                    <th style="text-align: center;">Vues</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in recentArticles %}
+                    <tr>
+                        <td><a href="{{ path('app_news') }}">{{ article.sujet }}</a></td>
+                        <td>{{ article.auteur }}</td>
+                        <td style="text-align: center;">{{ article.articleLikes|length }} ❤️</td>
+                        <td style="text-align: center;">{{ article.articleVues|length }} 👁️</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 15px;">Aucune discussion récente.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+</main>
+{% endblock %}

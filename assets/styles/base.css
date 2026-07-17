@@ -1,0 +1,106 @@
+:root {
+    --dark-bg: #0F1419;
+    --dark-secondary: #1A1F2E;
+    --dark-tertiary: #252D3D;
+    --gold-primary: #D4AF37;
+    --gold-light: #E8C547;
+    --neon-cyan: #00D9FF;
+    --neon-pink: #FF006E;
+    --text-primary: #F5F5F5;
+    --text-secondary: #B8B8B8;
+    --border-dark: #2A3142;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    background-color: var(--dark-bg);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+/* NAVIGATION MENU */
+.menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: var(--dark-secondary);
+    border-top: 2px solid var(--gold-primary);
+    padding: 0;
+    border-radius: 0;
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    z-index: 50;
+    box-shadow: 0 -4px 20px rgba(212, 175, 55, 0.1);
+}
+
+.menu::after {
+    display: none;
+}
+
+.menu a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-width: 0;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 12px 0;
+    border-radius: 0;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.3s ease;
+    border-top: 3px solid transparent;
+    position: relative;
+}
+
+.menu a:hover {
+    background-color: rgba(212, 175, 55, 0.08);
+    color: var(--gold-primary);
+    border-top-color: var(--neon-cyan);
+    text-shadow: 0 0 8px rgba(0, 217, 255, 0.3);
+}
+
+.menu a svg {
+    width: 1.3rem;
+    font-size: 1.3rem;
+    margin-bottom: 4px;
+    transition: filter 0.3s ease;
+}
+
+.menu a:hover svg {
+    filter: drop-shadow(0 0 4px var(--neon-cyan));
+}
+
+.menu a span {
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.menu a.active {
+    background-color: rgba(212, 175, 55, 0.15);
+    color: var(--gold-primary);
+    border-top-color: var(--gold-primary);
+    box-shadow: inset 0 -2px 0 var(--gold-primary);
+}
+
+.menu a:active {
+    opacity: 0.8;
+}
+
+body {
+    padding-bottom: 70px;
+}
+
+

@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b6278c0-5e9f-4718-993f-6a800df2127d" name="Changes" comment="Configuration Controller Sécurité et mise en place du form de Connexion" />
+    <list default="true" id="1b6278c0-5e9f-4718-993f-6a800df2127d" name="Changes" comment="Correction déploiement Render" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,7 +15,7 @@
     <execution />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="244" />
+    <option name="cachedIndexableFilesCount" value="11285" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -224,6 +224,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "list.type.of.created.stylesheet": "CSS",
@@ -298,6 +299,7 @@
       <workItem from="1784123815478" duration="719000" />
       <workItem from="1784187047960" duration="7022000" />
       <workItem from="1784321767782" duration="73000" />
+      <workItem from="1784321859248" duration="339000" />
     </task>
     <task id="LOCAL-00001" summary="Mise en place de la NavBar + Début Développement des autres pages">
       <option name="closed" value="true" />
@@ -315,7 +317,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778252748239</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Correction déploiement Render">
+      <option name="closed" value="true" />
+      <created>1784321940091</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1784321940091</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -324,6 +334,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Mise en place de la NavBar + Début Développement des autres pages" />
     <MESSAGE value="Configuration Controller Sécurité et mise en place du form de Connexion" />
-    <option name="LAST_COMMIT_MESSAGE" value="Configuration Controller Sécurité et mise en place du form de Connexion" />
+    <MESSAGE value="Correction déploiement Render" />
+    <option name="LAST_COMMIT_MESSAGE" value="Correction déploiement Render" />
   </component>
 </project>
