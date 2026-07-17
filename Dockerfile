@@ -44,7 +44,8 @@ RUN composer dump-autoload --optimize --no-dev \
     && composer symfony:dump-env prod || true
 
 # --- Assets (AssetMapper, pas de build Node nécessaire) ------------------
-RUN php bin/console asset-map:compile --env=prod --no-debug || true
+RUN php bin/console importmap:install --env=prod
+RUN php bin/console asset-map:compile --env=prod --no-debug
 
 # Droits d'écriture pour var/ (cache, logs, clés JWT générées au démarrage)
 RUN mkdir -p var config/jwt \
