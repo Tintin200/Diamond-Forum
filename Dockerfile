@@ -1,42 +1,60 @@
-FROM php:8.4-apache
+# syntax=docker/dockerfile:1
 
-# Install system dependencies for Symfony and Doctrine
-RUN apt-get update && apt-get install -y \
-    libicu-dev \
-    libpq-dev \
-    libzip-dev \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    zip \
-    unzip \
-    git \
-    curl \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install \
-    intl \
-    pdo \
-    pdo_mysql \
+# =====================================================================
+# Diamond Forum — image de production pour Render
+# Basée sur FrankenPHP (serveur web + PHP en un seul binaire),
+# l'approche officiellement recommandée par Symfony pour Docker.
+# =====================================================================
+
+FROM dunglas/frankenphp:php8.4 AS app
+
+# --- Extensions PHP nécessaires au projet -----------------------------
+# pdo_pgsql/pgsql : connexion PostgreSQL (Render Postgres)
+# intl            : symfony/intl, symfony/validator
+# opcache         : performances en production
+# zip             : composer / certaines dépendances
+RUN install-php-extensions \
     pdo_pgsql \
-    gd \
-    zip \
+    pgsql \
+    intl \
     opcache \
-    && a2enmod rewrite headers \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    zip \
+    gd
 
-# Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# --- Configuration PHP pour la prod ------------------------------------
+ENV APP_ENV=prod
+ENV APP_DEBUG=0
+# Le port réel est fourni par Render au runtime (variable $PORT) ;
+# c'est le Caddyfile qui la lit directement, voir docker/Caddyfile.
 
-WORKDIR /var/www/html
+WORKDIR /app
 
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
-RUN sed -ri 's!DocumentRoot /var/www/html!DocumentRoot /var/www/html/public!g' /etc/apache2/sites-available/*.conf
+# --- Composer -----------------------------------------------------------
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-COPY composer.json composer.lock ./
-RUN composer install --no-interaction --prefer-dist --no-progress
+# --- Dépendances PHP (mise en cache Docker : copiées avant le reste) ---
+COPY composer.json composer.lock symfony.lock ./
+RUN composer install --no-dev --no-scripts --no-progress --no-interaction --optimize-autoloader
 
-COPY . ./
-RUN chown -R www-data:www-data /var/www/html/var /var/www/html/vendor /var/www/html/public && chmod -R 755 /var/www/html/var
+# --- Reste du code de l'application -------------------------------------
+COPY . .
 
-CMD ["apache2-foreground"]
+# Termine l'installation des paquets Symfony Flex (scripts post-install)
+RUN composer dump-autoload --optimize --no-dev \
+    && composer symfony:dump-env prod || true
+
+# --- Assets (AssetMapper, pas de build Node nécessaire) ------------------
+RUN php bin/console asset-map:compile --env=prod --no-debug || true
+
+# Droits d'écriture pour var/ (cache, logs, clés JWT générées au démarrage)
+RUN mkdir -p var config/jwt \
+    && chown -R www-data:www-data var config/jwt
+
+COPY docker/Caddyfile /etc/caddy/Caddyfile
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+EXPOSE 80
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile"]

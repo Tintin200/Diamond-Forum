@@ -1,0 +1,23 @@
+{
+	frankenphp
+	order php_server before file_server
+}
+
+# Render fournit le port d'écoute via la variable d'environnement $PORT.
+:{$PORT} {
+	root * /app/public
+	encode gzip
+
+	# Sert les fichiers statiques compilés par AssetMapper (assets/, images...)
+	@static {
+		path /assets/* /images/* /favicon.ico
+	}
+	file_server @static
+
+	php_server
+
+	log {
+		output stdout
+		format console
+	}
+}

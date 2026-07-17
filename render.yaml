@@ -1,0 +1,44 @@
+databases:
+  - name: diamond-forum-db
+    plan: free
+    databaseName: diamond
+    user: diamond
+
+services:
+  - type: web
+    name: diamond-forum
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: APP_ENV
+        value: prod
+      - key: APP_DEBUG
+        value: "0"
+      # Généré automatiquement par Render (bouton "Generate" dans le dashboard,
+      # ou laisse Render le générer via sync: false + saisie manuelle)
+      - key: APP_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: diamond-forum-db
+          property: connectionString
+      - key: MESSENGER_TRANSPORT_DSN
+        value: "doctrine://default?auto_setup=0"
+      - key: MAILER_DSN
+        value: "null://null"
+      - key: DEFAULT_URI
+        sync: false
+      - key: CORS_ALLOW_ORIGIN
+        sync: false
+      - key: JWT_PASSPHRASE
+        generateValue: true
+      - key: JWT_SECRET_KEY
+        value: "%kernel.project_dir%/config/jwt/private.pem"
+      - key: JWT_PUBLIC_KEY
+        value: "%kernel.project_dir%/config/jwt/public.pem"
+      - key: BASEBALL_API_URL
+        value: "https://v1.baseball.api-sports.io/"
+      - key: BASEBALL_API_KEY
+        sync: false
