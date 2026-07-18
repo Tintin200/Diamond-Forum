@@ -2,74 +2,134 @@
 
 {% block title %}Forum - Diamond Forum{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('styles/forum.css') }}">
+{% endblock %}
+
 {% block body %}
-<main>
-    <h1>💬 Forum des Passionnés</h1>
-    <p>Échangez en direct avec la communauté de Diamond Forum sur tous les sujets chauds du baseball et de la MLB.</p>
-
-    <section>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-            <h2 style="margin: 0;">Salons de Discussion</h2>
-            <button class="btn">Créer un Sujet</button>
+<div class="df-forum">
+    <div class="df-forum__container">
+        {# Brand #}
+        <div class="df-forum__brand">
+            <span class="df-forum__brand-badge">DF</span>
+            <span class="df-forum__brand-name">DIAMOND FORUM</span>
         </div>
 
-        <div class="grid">
-            <div class="card">
-                <h3>⚾ Actualité MLB (Ligue Majeure)</h3>
-                <p class="text-secondary">Discussions en direct sur les rencontres de la saison régulière, les playoffs et le repêchage annuel.</p>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-                    <span class="badge primary">{{ mlbCount }} posts</span>
-                    <a href="{{ path('app_news') }}">Explorer →</a>
-                </div>
+        {# Header #}
+        <header class="df-forum__header">
+            <span class="df-forum__eyebrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                Forum des Passionnés
+            </span>
+            <h1>Échangez en direct avec la <span class="df-accent">communauté</span></h1>
+            <p>Retrouvez tous les sujets chauds du baseball et de la MLB, du premier lancer à la neuvième manche.</p>
+        </header>
+
+        {# Salons #}
+        <section class="df-forum__section">
+            <div class="df-forum__section-head">
+                <h2>Salons de Discussion</h2>
+                <a href="{{ path('app_article_new') }}" class="df-forum__cta">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Créer un Sujet
+                </a>
             </div>
 
-            <div class="card">
-                <h3>🔄 Mercato & Rumeurs de Transfert</h3>
-                <p class="text-secondary">Suivi des agents libres, des prolongations de contrats et des négociations d'échange de joueurs stars.</p>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-                    <span class="badge primary">{{ mercatoCount }} posts</span>
-                    <a href="{{ path('app_news') }}">Explorer →</a>
-                </div>
+            <div class="df-forum__rooms">
+                <a href="{{ path('app_news') }}" class="df-room-card">
+                    <span class="df-room-card__icon" style="background:rgba(255,242,0,0.1); color:#FFF200;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                    </span>
+                    <h3>Actualité MLB (Ligue Majeure)</h3>
+                    <p>Discussions en direct sur les rencontres de la saison régulière, les playoffs et le repêchage annuel.</p>
+                    <div class="df-room-card__footer">
+                        <span class="df-room-card__count">{{ mlbCount }} posts</span>
+                        <span class="df-room-card__explore">
+                            Explorer
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <a href="{{ path('app_news') }}" class="df-room-card">
+                    <span class="df-room-card__icon" style="background:rgba(16,185,129,0.1); color:#10B981;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
+                    </span>
+                    <h3>Mercato &amp; Rumeurs de Transfert</h3>
+                    <p>Suivi des agents libres, des prolongations de contrats et des négociations d'échange de joueurs stars.</p>
+                    <div class="df-room-card__footer">
+                        <span class="df-room-card__count">{{ mercatoCount }} posts</span>
+                        <span class="df-room-card__explore">
+                            Explorer
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </span>
+                    </div>
+                </a>
+
+                <a href="{{ path('app_news') }}" class="df-room-card">
+                    <span class="df-room-card__icon" style="background:rgba(239,68,68,0.1); color:#EF4444;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+                    </span>
+                    <h3>Guides &amp; Analyses Tactiques</h3>
+                    <p>Décryptages et statistiques avancées (sabermetrics), techniques de lancer et conseils de jeu.</p>
+                    <div class="df-room-card__footer">
+                        <span class="df-room-card__count">{{ guideCount }} posts</span>
+                        <span class="df-room-card__explore">
+                            Explorer
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        {# Discussions récentes #}
+        <section class="df-forum__section">
+            <div class="df-forum__section-head">
+                <h2>Discussions Récentes</h2>
             </div>
 
-            <div class="card">
-                <h3>📊 Guides & Analyses Tactiques</h3>
-                <p class="text-secondary">Décryptages et statistiques avancées (sabermetrics), techniques de lancer et conseils de jeu.</p>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-                    <span class="badge primary">{{ guideCount }} posts</span>
-                    <a href="{{ path('app_news') }}">Explorer →</a>
-                </div>
+            <div class="df-forum__table-wrap">
+                <table class="df-forum__table">
+                    <thead>
+                        <tr>
+                            <th>Sujet</th>
+                            <th>Auteur</th>
+                            <th class="df-align-right">
+                                <span class="df-th-icon">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></svg>
+                                    Likes
+                                </span>
+                            </th>
+                            <th class="df-align-right">
+                                <span class="df-th-icon">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    Vues
+                                </span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for article in recentArticles %}
+                            <tr>
+                                <td><a href="{{ path('app_news') }}" class="df-subject">{{ article.sujet }}</a></td>
+                                <td>{{ article.auteur }}</td>
+                                <td class="df-align-right">{{ article.articleLikes|length }}</td>
+                                <td class="df-align-right">{{ article.articleVues|length }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="df-forum__empty">Aucune discussion récente pour le moment. Sois le premier à lancer le débat !</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
-        </div>
-    </section>
-
-    <section>
-        <h2>Discussions Récentes</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Sujet</th>
-                    <th>Auteur</th>
-                    <th style="text-align: center;">Likes</th>
-                    <th style="text-align: center;">Vues</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for article in recentArticles %}
-                    <tr>
-                        <td><a href="{{ path('app_news') }}">{{ article.sujet }}</a></td>
-                        <td>{{ article.auteur }}</td>
-                        <td style="text-align: center;">{{ article.articleLikes|length }} ❤️</td>
-                        <td style="text-align: center;">{{ article.articleVues|length }} 👁️</td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="4" style="text-align: center; padding: 15px;">Aucune discussion récente.</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </section>
-
-</main>
+        </section>
+    </div>
+</div>
 {% endblock %}
