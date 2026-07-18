@@ -1,0 +1,307 @@
+/* =====================================================================
+   Diamond Forum — Forum page styles (/chat)
+   Converti depuis la maquette v0.app (React/Tailwind) vers du CSS pur.
+   ===================================================================== */
+
+:root {
+    --df-yellow: #fff200;
+    --df-green: #10b981;
+    --df-black: #000000;
+    --df-red: #ef4444;
+    --df-gray: #e5e7eb;
+    --df-font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.df-forum {
+    background: var(--df-black);
+    color: var(--df-gray);
+    font-family: var(--df-font-sans);
+    min-height: 100vh;
+}
+
+.df-forum * {
+    box-sizing: border-box;
+}
+
+.df-forum__container {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 48px 24px;
+}
+
+/* ---------- Brand ---------- */
+.df-forum__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.df-forum__brand-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background: var(--df-yellow);
+    color: var(--df-black);
+    font-weight: 900;
+    font-size: 1rem;
+}
+
+.df-forum__brand-name {
+    font-size: 1.125rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--df-gray);
+}
+
+/* ---------- Header ---------- */
+.df-forum__header {
+    max-width: 42rem;
+}
+
+.df-forum__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--df-green);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+}
+
+.df-forum__header h1 {
+    font-size: 2.25rem;
+    font-weight: 900;
+    line-height: 1.2;
+    color: var(--df-gray);
+    letter-spacing: -0.02em;
+}
+
+.df-forum__header h1 .df-accent,
+.df-forum .df-accent {
+    color: var(--df-yellow);
+}
+
+.df-forum__header p {
+    margin-top: 16px;
+    line-height: 1.6;
+    color: rgba(229, 231, 235, 0.6);
+}
+
+/* ---------- Sections ---------- */
+.df-forum__section {
+    margin-top: 56px;
+}
+
+.df-forum__section-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.df-forum__section-head h2 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--df-gray);
+    margin: 0;
+}
+
+.df-forum__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    border: none;
+    background: var(--df-yellow);
+    color: var(--df-black);
+    padding: 10px 16px;
+    font-size: 0.875rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: filter 0.2s ease;
+}
+
+.df-forum__cta:hover {
+    filter: brightness(0.95);
+}
+
+/* ---------- Rooms grid ---------- */
+.df-forum__rooms {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+    .df-forum__rooms {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.df-room-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    border: 1px solid rgba(229, 231, 235, 0.1);
+    background: rgba(229, 231, 235, 0.03);
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.df-room-card:hover {
+    border-color: rgba(229, 231, 235, 0.25);
+    transform: translateY(-4px);
+}
+
+.df-room-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    font-size: 1.4rem;
+}
+
+.df-room-card h3 {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    font-weight: 900;
+    line-height: 1.35;
+    color: var(--df-gray);
+}
+
+.df-room-card p {
+    margin-top: 8px;
+    flex: 1;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: rgba(229, 231, 235, 0.6);
+}
+
+.df-room-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(229, 231, 235, 0.1);
+}
+
+.df-room-card__count {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(229, 231, 235, 0.4);
+}
+
+.df-room-card__explore {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--df-green);
+    transition: color 0.2s ease, gap 0.2s ease;
+}
+
+.df-room-card:hover .df-room-card__explore {
+    color: var(--df-yellow);
+    gap: 10px;
+}
+
+/* ---------- Table des discussions récentes ---------- */
+.df-forum__table-wrap {
+    overflow: hidden;
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid rgba(229, 231, 235, 0.1);
+}
+
+.df-forum__table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.875rem;
+}
+
+.df-forum__table thead tr {
+    background: rgba(229, 231, 235, 0.03);
+    border-bottom: 1px solid rgba(229, 231, 235, 0.1);
+}
+
+.df-forum__table th {
+    padding: 16px 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(229, 231, 235, 0.5);
+    white-space: nowrap;
+}
+
+.df-forum__table th.df-align-right {
+    text-align: right;
+}
+
+.df-forum__table th .df-th-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: flex-end;
+}
+
+.df-forum__table td {
+    padding: 16px 20px;
+    border-top: 1px solid rgba(229, 231, 235, 0.06);
+    color: var(--df-gray);
+}
+
+.df-forum__table tbody tr:first-child td {
+    border-top: none;
+}
+
+.df-forum__table tbody tr:hover {
+    background: rgba(229, 231, 235, 0.02);
+}
+
+.df-forum__table a.df-subject {
+    color: var(--df-gray);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s ease;
+}
+
+.df-forum__table a.df-subject:hover {
+    color: var(--df-yellow);
+}
+
+.df-forum__table td.df-align-right {
+    text-align: right;
+    color: rgba(229, 231, 235, 0.7);
+}
+
+.df-forum__empty {
+    padding: 48px 20px;
+    text-align: center;
+    color: rgba(229, 231, 235, 0.4);
+}
