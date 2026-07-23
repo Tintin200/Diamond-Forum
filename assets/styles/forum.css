@@ -146,6 +146,7 @@
     display: grid;
     gap: 20px;
     grid-template-columns: 1fr;
+    color: black;
 }
 
 @media (min-width: 768px) {
