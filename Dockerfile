@@ -21,6 +21,10 @@ RUN install-php-extensions \
     zip \
     gd
 
+RUN apt-get update && apt-get install -y --no-install-recommends libcap2-bin \
+    && setcap -r /usr/local/bin/frankenphp \
+    && rm -rf /var/lib/apt/lists/*
+
 # --- Configuration PHP pour la prod ------------------------------------
 ENV APP_ENV=prod
 ENV APP_DEBUG=0
