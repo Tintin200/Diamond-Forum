@@ -1,42 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* ⚾ PROFESSIONAL BASEBALL THEME ⚾ */
+
 
 :root {
-    /* Colors from UX-UI Graphic Charter PDF */
-    --primary-dark: #000000;         /* Noir */
-    --primary-light: #FFFFFF;        /* Blanc */
-    --accent-green: #10B981;         /* Vert (field turf) */
-    --accent-red: #EF4444;           /* Rouge (baseball stitching / likes) */
-    --accent-yellow: #FFF200;        /* Jaune (highlights) */
-    --gray-light: #E5E7EB;           /* Gris Clair (borders & lines) */
     
-    /* Layout & Text Palette */
-    --bg-main: #F9FAFB;              /* Light, clean slate background */
+    --primary-dark: #000000;         
+    --primary-light: #FFFFFF;        
+    --accent-green: #10B981;         
+    --accent-red: #EF4444;           
+    --accent-yellow: #FFF200;        
+    --gray-light: #E5E7EB;           
+    
+    
+    --bg-main: #F9FAFB;              
     --bg-card: #FFFFFF;
-    --gray-medium: #9CA3AF;          /* Placeholders & Muted text */
-    --gray-dark: #1F2937;            /* Dark grey for secondary text */
-    --text-primary: #111827;         /* High readability black */
-    --text-secondary: #4B5563;       /* Muted gray for body text */
+    --gray-medium: #9CA3AF;          
+    --gray-dark: #1F2937;            
+    --text-primary: #111827;         
+    --text-secondary: #4B5563;       
     --border-color: #E5E7EB;
     
-    /* Semantic compatibility aliases */
+    
     --gold-primary: var(--accent-green);
     --neon-cyan: var(--accent-red);
     --accent-blue: var(--accent-green);
     --success: var(--accent-green);
     --danger: var(--accent-red);
-    --warning: #D97706;              /* Readable yellow-brown */
+    --warning: #D97706;              
     --info: var(--accent-green);
 }
 
-/* GENERAL TYPOGRAPHY */
+
 html, body {
     background-color: var(--bg-main) !important;
     color: var(--text-primary) !important;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-size: 16px; /* Inter Body (16px) */
-    font-weight: 400; /* Regular */
+    font-size: 16px; 
+    font-weight: 400; 
     line-height: 1.6;
     margin: 0;
     padding: 0;
@@ -51,15 +51,15 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
 }
 
-/* Page titles */
+
 h1 {
     font-size: 24px;
     margin-bottom: 8px;
 }
 
-/* Sections and card titles */
+
 h2 {
-    font-size: 20px; /* Inter Heading (20px) */
+    font-size: 20px; 
     font-weight: 700;
     margin-bottom: 20px;
     padding-bottom: 12px;
@@ -78,14 +78,14 @@ p {
     margin-bottom: 16px;
 }
 
-/* MAIN CONTENT */
+
 main {
     padding: 40px 20px 100px 20px;
     max-width: 1100px;
     margin: 0 auto;
 }
 
-/* CARDS & SECTIONS */
+
 .card, section {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
@@ -104,7 +104,7 @@ main {
     border-color: var(--accent-green);
 }
 
-/* Add a premium baseball green touch to cards on hover */
+
 .card::after {
     content: '';
     position: absolute;
@@ -121,15 +121,15 @@ main {
     opacity: 1;
 }
 
-/* BUTTONS */
+
 button, .btn, input[type="submit"] {
     background: var(--primary-dark);
     color: var(--primary-light);
     border: none;
     padding: 10px 20px;
     border-radius: 6px;
-    font-size: 14px; /* Inter Label (14px) */
-    font-weight: 500; /* Medium */
+    font-size: 14px; 
+    font-weight: 500; 
     font-family: 'Inter', sans-serif;
     cursor: pointer;
     display: inline-flex;
@@ -161,13 +161,13 @@ button.secondary:hover, .btn.secondary:hover {
     color: var(--primary-dark);
 }
 
-/* FORMS */
+
 label {
     display: block;
     margin-bottom: 6px;
     color: var(--text-primary);
-    font-size: 14px; /* Inter Label (14px) */
-    font-weight: 500; /* Medium */
+    font-size: 14px; 
+    font-weight: 500; 
 }
 
 input[type="text"],
@@ -204,7 +204,7 @@ textarea {
     min-height: 120px;
 }
 
-/* LINKS */
+
 a {
     color: var(--accent-green);
     text-decoration: none;
@@ -213,18 +213,18 @@ a {
 }
 
 a:hover {
-    color: #059669; /* Darker green */
+    color: #059669; 
     text-decoration: underline;
 }
 
-/* BADGES & TAGS */
+
 .badge, .tag {
     display: inline-block;
     background: var(--gray-light);
     color: var(--text-secondary);
     padding: 4px 10px;
     border-radius: 20px;
-    font-size: 12px; /* Inter Small (12px) */
+    font-size: 12px; 
     font-weight: 500;
     margin-right: 8px;
     margin-bottom: 8px;
@@ -253,7 +253,7 @@ a:hover {
     color: #9A8700;
 }
 
-/* ALERTS & MESSAGES */
+
 .alert, .message {
     padding: 14px 18px;
     border-radius: 6px;
@@ -277,7 +277,7 @@ a:hover {
     color: #991B1B;
 }
 
-/* NAVIGATION MENU */
+
 .menu {
     position: fixed;
     bottom: 0;
@@ -305,7 +305,7 @@ a:hover {
     padding: 12px 0;
     transition: all 0.25s ease !important;
     border-top: 3px solid transparent !important;
-    font-size: 12px; /* Inter Small */
+    font-size: 12px; 
 }
 
 .menu a:hover {
@@ -339,10 +339,10 @@ a:hover {
 }
 
 body {
-    padding-bottom: 70px; /* Offset for the sticky bottom bar */
+    padding-bottom: 70px; 
 }
 
-/* GRID & FLEX */
+
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -357,7 +357,7 @@ body {
     gap: 20px;
 }
 
-/* TABLES */
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -377,7 +377,7 @@ th, td {
 th {
     font-weight: 600;
     color: var(--primary-dark);
-    font-size: 13px; /* Inter Small */
+    font-size: 13px; 
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
@@ -386,7 +386,7 @@ tr:hover {
     background: rgba(16, 185, 129, 0.02);
 }
 
-/* ANIMATIONS */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -402,7 +402,7 @@ tr:hover {
     animation: fadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* UTILITIES */
+
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 .text-muted { color: var(--text-secondary) !important; }

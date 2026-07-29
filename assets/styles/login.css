@@ -1,7 +1,4 @@
-/* =====================================================================
-   Diamond Forum — Login page styles
-   Converti depuis la maquette v0.app (React/Tailwind) vers du CSS pur.
-   ===================================================================== */
+
 
 :root {
     --df-yellow: #fff200;
@@ -44,7 +41,7 @@ html, body {
     }
 }
 
-/* ---------- Panneau visuel (gauche, masqué en mobile) ---------- */
+
 .df-login__visual {
     position: relative;
     display: none;
@@ -152,7 +149,7 @@ html, body {
     color: rgba(229, 231, 235, 0.7);
 }
 
-/* ---------- Panneau formulaire (droite) ---------- */
+
 .df-login__form-panel {
     display: flex;
     align-items: center;
@@ -294,8 +291,7 @@ html, body {
     background: rgba(229, 231, 235, 0.1);
 }
 
-/* Neutralise les styles natifs de validation (Firefox colore les champs
-   valides en vert / invalides en rouge par défaut) */
+
 .df-login__input-wrap input:required,
 .df-login__input-wrap input:valid,
 .df-login__input-wrap input:invalid,

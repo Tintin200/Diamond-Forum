@@ -1,6 +1,6 @@
-/* ⚾ BASEBALL THEME STYLES ⚾ */
 
-/* VARIABLES */
+
+
 :root {
     --baseball-green: #1B4D3E;
     --baseball-white: #F5F5DC;
@@ -10,7 +10,7 @@
     --baseball-dark: #0f2f23;
 }
 
-/* BODY & GENERAL STYLES */
+
 body {
     background: linear-gradient(135deg, var(--baseball-green) 0%, #2d6d5f 100%);
     color: var(--baseball-white);
@@ -18,14 +18,14 @@ body {
     min-height: 100vh;
 }
 
-/* MAIN CONTENT WRAPPER */
+
 main {
     padding: 40px 20px 120px 20px;
     max-width: 900px;
     margin: 0 auto;
 }
 
-/* HEADINGS */
+
 h1, h2, h3, h4, h5, h6 {
     color: var(--baseball-white);
     font-weight: 700;
@@ -51,7 +51,7 @@ h3 {
     color: var(--baseball-beige);
 }
 
-/* CARDS & CONTAINERS */
+
 .card, .container, section {
     background: rgba(255, 255, 255, 0.95);
     border-left: 5px solid var(--baseball-red);
@@ -68,7 +68,7 @@ h3 {
     transition: all 0.3s ease;
 }
 
-/* BUTTONS */
+
 button, .btn, input[type="submit"] {
     background: var(--baseball-red);
     color: var(--baseball-white);
@@ -92,7 +92,7 @@ button:active, .btn:active, input[type="submit"]:active {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* FORMS */
+
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -128,7 +128,7 @@ label {
     font-weight: 600;
 }
 
-/* LINKS */
+
 a {
     color: var(--baseball-red);
     text-decoration: none;
@@ -141,7 +141,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/* BADGES & TAGS */
+
 .badge, .tag {
     display: inline-block;
     background: var(--baseball-red);
@@ -159,7 +159,7 @@ a:hover {
     color: var(--baseball-dark);
 }
 
-/* MESSAGES & ALERTS */
+
 .alert, .message {
     padding: 15px;
     border-radius: 6px;
@@ -185,7 +185,7 @@ a:hover {
     color: var(--baseball-dark);
 }
 
-/* SCOREBOARD STYLE ELEMENTS */
+
 .scoreboard {
     background: var(--baseball-dark);
     color: var(--baseball-white);
@@ -205,7 +205,7 @@ a:hover {
     text-shadow: 0 0 10px rgba(196, 30, 58, 0.5);
 }
 
-/* LAYOUT */
+
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -220,7 +220,7 @@ a:hover {
     gap: 15px;
 }
 
-/* RESPONSIVE */
+
 @media (max-width: 768px) {
     h1 {
         font-size: 2rem;
@@ -239,7 +239,7 @@ a:hover {
     }
 }
 
-/* ANIMATIONS */
+
 @keyframes slideIn {
     from {
         opacity: 0;
@@ -255,7 +255,7 @@ a:hover {
     animation: slideIn 0.3s ease-out;
 }
 
-/* TEXT UTILITIES */
+
 .text-center {
     text-align: center;
 }
