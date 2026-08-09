@@ -1,74 +1,174 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}A Propos - Diamond Forum{% endblock %}
+{% block title %}À propos - Diamond Forum{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('styles/about.css') }}">
+{% endblock %}
 
 {% block body %}
-<main>
-    <h1>🏛️ À Propos de Diamond Forum</h1>
-    <p>Célébrer l'amour du jeu, une manche à la fois.</p>
-
-    <section>
-        <h2>Notre Philosophie</h2>
-        <p>Nous pensons que le baseball est plus qu'un simple sport : c'est une culture, une communauté de passionnés qui s'étend sur des générations. Du bruit de la batte frappant la balle au suspense d'un coup de circuit en fin de 9ème manche, Diamond Forum a été créé pour rassembler les fans du monde entier afin de partager cette flamme.</p>
-        <p>Chaque aspect de notre plateforme a été conçu pour offrir un espace sain, informatif et stimulant pour échanger sur les statistiques, l'histoire des franchises et le jeu sur le terrain.</p>
-    </section>
-
-    <section>
-        <h2>Nos Valeurs de Jeu</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>⚾ La Passion du Jeu</h3>
-                <p>Nous vivons pour les statistiques détaillées (sabermetrics), l'histoire des stades légendaires et l'avenir des jeunes espoirs.</p>
-            </div>
-
-            <div class="card">
-                <h3>🤝 Esprit Sportif</h3>
-                <p>Que vous souteniez les Yankees, les Red Sox ou les Dodgers, nous encourageons les débats animés mais toujours respectueux.</p>
-            </div>
-
-            <div class="card">
-                <h3>📊 Analyse Rigoureuse</h3>
-                <p>Nous mettons en avant le décryptage tactique et les statistiques avancées pour mieux comprendre les choix de jeu des managers.</p>
-            </div>
-
-            <div class="card">
-                <h3>🏟️ Préservation du Patrimoine</h3>
-                <p>Nous célébrons la mémoire des légendes du baseball et l'histoire des parcs historiques qui font l'âme de ce sport.</p>
-            </div>
+<div class="df-about">
+    <div class="df-about__container">
+        {# Brand #}
+        <div class="df-about__brand">
+            <span class="df-about__brand-badge">DF</span>
+            <span class="df-about__brand-name">DIAMOND FORUM</span>
         </div>
-    </section>
 
-    <section>
-        <h2>Ce qui nous rassemble</h2>
-        <ul>
-            <li><strong>Communauté de connaisseurs</strong> - Des discussions de haut niveau avec des fans passionnés et des analystes amateurs.</li>
-            <li><strong>Design épuré et fluide</strong> - Une interface moderne conçue pour faciliter la lecture des scores et des actus.</li>
-            <li><strong>Suivi personnalisé</strong> - Enregistrez vos stades visités et vos articles préférés dans votre profil.</li>
-            <li><strong>Modération active</strong> - Une équipe de bénévoles qui veille à préserver une atmosphère conviviale et sportive.</li>
-        </ul>
-    </section>
+        {# Header #}
+        <header class="df-about__header">
+            <span class="df-about__eyebrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
+                À Propos de Diamond Forum
+            </span>
+            <h1>Célébrer l'amour du jeu, <span class="df-accent">une manche à la fois.</span></h1>
+        </header>
 
-    <section>
-        <h2>Nous Contacter</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>✉️ Support de la Ligue</h3>
-                <p>contact@diamondforum.com</p>
-                <p class="text-secondary">Réponse sous 24h par nos arbitres</p>
+        {# Philosophie #}
+        <section class="df-about__section df-about__philosophy">
+            <h2>Notre Philosophie</h2>
+            <div class="df-about__philosophy-text">
+                <p>
+                    Nous pensons que le baseball est plus qu'un simple sport : c'est une culture, une communauté de
+                    passionnés qui s'étend sur des générations. Du bruit de la batte frappant la balle au suspense
+                    d'un coup de circuit en fin de 9<sup>ème</sup> manche, <strong>Diamond Forum</strong> a été créé
+                    pour rassembler les fans du monde entier afin de partager cette flamme.
+                </p>
+                <p>
+                    Chaque aspect de notre plateforme a été conçu pour offrir un espace sain, informatif et
+                    stimulant pour échanger sur les statistiques, l'histoire des franchises et le jeu sur le terrain.
+                </p>
+            </div>
+        </section>
+
+        {# Valeurs #}
+        <section class="df-about__section">
+            <h2>Nos Valeurs de Jeu</h2>
+            <div class="df-about__grid df-about__grid--2">
+                <article class="df-value-card">
+                    <span class="df-value-card__icon" style="background:rgba(255,242,0,0.1); color:#FFF200;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+                    </span>
+                    <div>
+                        <h3>La Passion du Jeu</h3>
+                        <p>Nous vivons pour les statistiques détaillées (sabermetrics), l'histoire des stades légendaires et l'avenir des jeunes espoirs.</p>
+                    </div>
+                </article>
+
+                <article class="df-value-card">
+                    <span class="df-value-card__icon" style="background:rgba(16,185,129,0.1); color:#10B981;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.42.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg>
+                    </span>
+                    <div>
+                        <h3>Esprit Sportif</h3>
+                        <p>Que vous souteniez les Yankees, les Red Sox ou les Dodgers, nous encourageons les débats animés mais toujours respectueux.</p>
+                    </div>
+                </article>
+
+                <article class="df-value-card">
+                    <span class="df-value-card__icon" style="background:rgba(239,68,68,0.1); color:#EF4444;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+                    </span>
+                    <div>
+                        <h3>Analyse Rigoureuse</h3>
+                        <p>Nous mettons en avant le décryptage tactique et les statistiques avancées pour mieux comprendre les choix des managers.</p>
+                    </div>
+                </article>
+
+                <article class="df-value-card">
+                    <span class="df-value-card__icon" style="background:rgba(255,242,0,0.1); color:#FFF200;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg>
+                    </span>
+                    <div>
+                        <h3>Préservation du Patrimoine</h3>
+                        <p>Nous célébrons la mémoire des légendes du baseball et l'histoire des parcs historiques qui font l'âme de ce sport.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        {# Ce qui nous rassemble #}
+        <section class="df-about__section">
+            <h2>Ce qui nous rassemble</h2>
+            <div class="df-about__grid df-about__grid--4">
+                <article class="df-feature-mini-card">
+                    <span class="df-feature-mini-card__icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </span>
+                    <h3>Communauté de connaisseurs</h3>
+                    <p>Des discussions de haut niveau avec des fans passionnés et des analystes amateurs.</p>
+                </article>
+
+                <article class="df-feature-mini-card">
+                    <span class="df-feature-mini-card__icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
+                    </span>
+                    <h3>Design épuré et fluide</h3>
+                    <p>Une interface moderne conçue pour faciliter la lecture des scores et des actus.</p>
+                </article>
+
+                <article class="df-feature-mini-card">
+                    <span class="df-feature-mini-card__icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
+                    </span>
+                    <h3>Suivi personnalisé</h3>
+                    <p>Enregistrez vos stades visités et vos articles préférés dans votre profil.</p>
+                </article>
+
+                <article class="df-feature-mini-card">
+                    <span class="df-feature-mini-card__icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+                    </span>
+                    <h3>Modération active</h3>
+                    <p>Une équipe de bénévoles qui veille à préserver une atmosphère conviviale et sportive.</p>
+                </article>
+            </div>
+        </section>
+
+        {# Contact #}
+        <section class="df-about__section">
+            <h2>Nous Contacter</h2>
+            <div class="df-about__grid df-about__grid--3">
+                <article class="df-contact-card">
+                    <span class="df-contact-card__icon" style="background:rgba(255,242,0,0.1); color:#FFF200;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    </span>
+                    <h3>Support de la Ligue</h3>
+                    <p class="df-contact-value">contact@diamondforum.com</p>
+                    <p class="df-contact-note">Réponse sous 24h par nos arbitres</p>
+                </article>
+
+                <article class="df-contact-card">
+                    <span class="df-contact-card__icon" style="background:rgba(16,185,129,0.1); color:#10B981;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.72 1.6l-.468.339a1 1 0 0 0-.29 1.2 12 12 0 0 0 6.31 6.329z"/></svg>
+                    </span>
+                    <h3>Bureau des Fans</h3>
+                    <p class="df-contact-value">+33 (0)1 23 45 67 89</p>
+                    <p class="df-contact-note">Disponible les jours de match (MLB)</p>
+                </article>
+
+                <article class="df-contact-card">
+                    <span class="df-contact-card__icon" style="background:rgba(239,68,68,0.1); color:#EF4444;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                    </span>
+                    <h3>Réseaux Sociaux</h3>
+                    <p class="df-contact-value">@DiamondForumBaseball</p>
+                    <p class="df-contact-note">Suivez les coups de circuit de la semaine</p>
+                </article>
             </div>
 
-            <div class="card">
-                <h3>📱 Bureau des Fans</h3>
-                <p>+33 (0)1 23 45 67 89</p>
-                <p class="text-secondary">Disponible les jours de match (MLB)</p>
+            <div class="df-about__cta-banner">
+                <p>Prêt à rejoindre la communauté ? Lance-toi dans les débats dès maintenant.</p>
+                <a href="{{ path('app_chat') }}">
+                    Rejoindre le forum
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
             </div>
-
-            <div class="card">
-                <h3>🌐 Réseaux Sociaux</h3>
-                <p>@DiamondForumBaseball</p>
-                <p class="text-secondary">Suivez les coups de circuit de la semaine</p>
-            </div>
-        </div>
-    </section>
-</main>
+        </section>
+    </div>
+</div>
 {% endblock %}

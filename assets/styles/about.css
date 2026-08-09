@@ -1,0 +1,345 @@
+
+:root {
+    --df-yellow: #fff200;
+    --df-green: #10b981;
+    --df-black: #000000;
+    --df-red: #ef4444;
+    --df-gray: #e5e7eb;
+    --df-font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.df-about {
+    background: var(--df-black) !important;
+    color: var(--df-gray);
+    font-family: var(--df-font-sans);
+    min-height: 100vh;
+}
+
+.df-about * {
+    box-sizing: border-box;
+}
+
+.df-about__container {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 48px 24px;
+}
+
+@media (min-width: 640px) {
+    .df-about__container {
+        padding: 48px 40px;
+    }
+}
+
+/* ---------- Brand ---------- */
+.df-about__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.df-about__brand-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background: var(--df-yellow);
+    color: var(--df-black);
+    font-weight: 900;
+    font-size: 1rem;
+}
+
+.df-about__brand-name {
+    font-size: 1.125rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--df-gray);
+}
+
+/* ---------- Header ---------- */
+.df-about__header {
+    max-width: 48rem;
+}
+
+.df-about__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--df-green);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+}
+
+.df-about__header h1 {
+    font-size: 2.25rem;
+    font-weight: 900;
+    line-height: 1.2;
+    color: var(--df-gray);
+    letter-spacing: -0.02em;
+}
+
+@media (min-width: 640px) {
+    .df-about__header h1 {
+        font-size: 3rem;
+    }
+}
+
+.df-about .df-accent {
+    color: var(--df-yellow);
+}
+
+/* ---------- Sections ---------- */
+.df-about__section {
+    margin-top: 56px;
+}
+
+.df-about__section h2 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--df-black);
+    margin: 0 0 24px;
+}
+
+/* ---------- Philosophie ---------- */
+.df-about__philosophy {
+    display: grid;
+    gap: 32px;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+    .df-about__philosophy {
+        grid-template-columns: 1fr 1.4fr;
+    }
+    .df-about__philosophy h2 {
+        margin-bottom: 0;
+        font-size: 1.875rem;
+    }
+}
+
+.df-about__philosophy-text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    line-height: 1.7;
+    color: rgba(229, 231, 235, 0.7);
+}
+
+.df-about__philosophy-text strong {
+    color: var(--df-gray);
+    font-weight: 700;
+}
+
+/* ---------- Grilles de cartes ---------- */
+.df-about__grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr;
+}
+
+.df-about__grid--2 {
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+    .df-about__grid--2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .df-about__grid--4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .df-about__grid--4 {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .df-about__grid--3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ---------- Cartes valeurs ---------- */
+.df-value-card {
+    display: flex;
+    gap: 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(229, 231, 235, 0.1);
+    background: rgba(229, 231, 235, 0.03);
+    padding: 24px;
+    transition: border-color 0.2s ease;
+}
+
+.df-value-card:hover {
+    border-color: rgba(229, 231, 235, 0.25);
+}
+
+.df-value-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 8px;
+}
+
+.df-value-card h3 {
+    font-size: 1.1rem;
+    font-weight: 900;
+    line-height: 1.35;
+    color: var(--df-black);
+    margin: 0;
+}
+
+.df-value-card p {
+    margin-top: 8px;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--df-black);
+}
+
+/* ---------- Cartes fonctionnalités ---------- */
+.df-feature-mini-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    border: 1px solid rgba(229, 231, 235, 0.1);
+    background: rgba(229, 231, 235, 0.03);
+    padding: 24px;
+    transition: border-color 0.2s ease;
+}
+
+.df-feature-mini-card:hover {
+    border-color: rgba(255, 242, 0, 0.4);
+}
+
+.df-feature-mini-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background: rgba(255, 242, 0, 0.1);
+    color: var(--df-yellow);
+}
+
+.df-feature-mini-card h3 {
+    margin-top: 16px;
+    font-size: 1rem;
+    font-weight: 900;
+    line-height: 1.35;
+    color: var(--df-black);
+}
+
+.df-feature-mini-card p {
+    margin-top: 8px;
+    flex: 1;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--df-black);
+}
+
+/* ---------- Cartes contact ---------- */
+.df-contact-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    border: 1px solid rgba(229, 231, 235, 0.1);
+    background: rgba(229, 231, 235, 0.03);
+    padding: 24px;
+    transition: border-color 0.2s ease;
+}
+
+.df-contact-card:hover {
+    border-color: rgba(229, 231, 235, 0.25);
+}
+
+.df-contact-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+}
+
+.df-contact-card h3 {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    font-weight: 900;
+    line-height: 1.35;
+    color: var(--df-black);
+}
+
+.df-contact-card .df-contact-value {
+    margin-top: 8px;
+    font-weight: 700;
+    color: var(--df-black);
+}
+
+.df-contact-card .df-contact-note {
+    margin-top: 4px;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--df-black);
+}
+
+/* ---------- Bandeau CTA final ---------- */
+.df-about__cta-banner {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 242, 0, 0.3);
+    background: rgba(255, 242, 0, 0.06);
+    padding: 24px;
+}
+
+.df-about__cta-banner p {
+    font-weight: 700;
+    color: var(--df-black);
+    margin: 0;
+}
+
+.df-about__cta-banner a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    background: var(--df-yellow);
+    color: var(--df-black);
+    padding: 10px 20px;
+    font-size: 0.875rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: filter 0.2s ease;
+}
+
+.df-about__cta-banner a:hover {
+    filter: brightness(0.95);
+}
