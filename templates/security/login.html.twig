@@ -21,10 +21,10 @@
             <div class="df-login__visual-overlay"></div>
 
             <div class="df-login__visual-content">
-                <div class="df-login__brand">
+                <a href="{{ path('app_home') }}" class="df-login__brand brand-link">
                     <span class="df-login__brand-badge">DF</span>
                     <span class="df-login__brand-name">DIAMOND FORUM</span>
-                </div>
+                </a>
 
                 <div class="df-login__pitch">
                     <span class="df-login__pitch-badge">+{{ userCount|default(48000) }} membres actifs</span>
@@ -39,10 +39,10 @@
 
         <section class="df-login__form-panel">
             <div class="df-login__form-wrap" data-controller="login-form">
-                <div class="df-login__mobile-brand">
+                <a href="{{ path('app_home') }}" class="df-login__mobile-brand brand-link">
                     <span class="df-login__brand-badge">DF</span>
                     <span class="df-login__brand-name">DIAMOND FORUM</span>
-                </div>
+                </a>
 
                 <h1>Content de te revoir</h1>
                 <p>Connecte-toi pour reprendre les débats et suivre les résultats de la MLB.</p>
