@@ -1,4 +1,4 @@
-/* ⚾ HOME PAGE PROFILE DRAWER STYLES ⚾ */
+
 
 .profile-header-bar {
     display: flex;
@@ -37,11 +37,11 @@
     height: 24px;
 }
 
-/* Drawer CSS */
+
 .profile-drawer {
     position: fixed;
     top: 0;
-    right: -400px; /* Hidden initially */
+    right: -400px; 
     width: 100%;
     max-width: 400px;
     height: 100%;
@@ -216,7 +216,7 @@
     background-color: #DC2626 !important;
 }
 
-/* ⚾ LIVE GAMES STYLES ⚾ */
+
 .game-card {
     display: flex;
     flex-direction: column;

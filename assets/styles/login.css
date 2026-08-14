@@ -1,4 +1,5 @@
 
+
 :root {
     --df-yellow: #fff200;
     --df-green: #10b981;
@@ -18,7 +19,7 @@ html, body {
 .df-login {
     min-height: 100vh;
     width: 100%;
-    background: var(--df-black);
+    background: var(--df-black) !important;
     color: var(--df-gray);
     font-family: var(--df-font-sans);
 }
@@ -31,6 +32,7 @@ html, body {
     display: grid;
     min-height: 100vh;
     grid-template-columns: 1fr;
+    background: var(--df-black) !important;
 }
 
 @media (min-width: 1024px) {
@@ -39,7 +41,7 @@ html, body {
     }
 }
 
-/* ---------- Panneau visuel (gauche, masqué en mobile) ---------- */
+
 .df-login__visual {
     position: relative;
     display: none;
@@ -147,12 +149,13 @@ html, body {
     color: rgba(229, 231, 235, 0.7);
 }
 
-/* ---------- Panneau formulaire (droite) ---------- */
+
 .df-login__form-panel {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 48px 24px;
+    background: var(--df-black) !important;
 }
 
 .df-login__form-wrap {
@@ -262,15 +265,19 @@ html, body {
 
 .df-login__input-wrap input {
     width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     border-radius: 8px;
-    border: 1px solid rgba(229, 231, 235, 0.15);
-    background: rgba(229, 231, 235, 0.04);
+    border: none;
+    background: rgba(229, 231, 235, 0.06);
     color: var(--df-gray);
     padding: 12px 12px 12px 40px;
     font-family: inherit;
     font-size: 0.95rem;
     outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: none;
+    transition: background-color 0.2s ease;
 }
 
 .df-login__input-wrap input::placeholder {
@@ -278,8 +285,21 @@ html, body {
 }
 
 .df-login__input-wrap input:focus {
-    border-color: var(--df-green);
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+    outline: none;
+    border: none;
+    box-shadow: none;
+    background: rgba(229, 231, 235, 0.1);
+}
+
+
+.df-login__input-wrap input:required,
+.df-login__input-wrap input:valid,
+.df-login__input-wrap input:invalid,
+.df-login__input-wrap input:-moz-ui-valid,
+.df-login__input-wrap input:-moz-ui-invalid {
+    border: none;
+    box-shadow: none;
+    outline: none;
 }
 
 .df-login__input-wrap input.has-toggle {

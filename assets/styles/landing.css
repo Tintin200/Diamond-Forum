@@ -72,7 +72,7 @@
     margin-bottom: 40px;
 }
 
-/* ---------- Bouton / Boutons ---------- */
+
 .df-btn {
     display: inline-flex;
     align-items: center;
@@ -113,7 +113,7 @@
     color: var(--df-black);
 }
 
-/* ---------- Navigation (landing header) ---------- */
+
 .df-nav {
     position: fixed;
     top: 0;
@@ -253,7 +253,7 @@
     }
 }
 
-/* ---------- Hero ---------- */
+
 .df-hero {
     min-height: 92vh;
     display: flex;
@@ -412,7 +412,7 @@
     background: rgba(255, 255, 255, 0.3);
 }
 
-/* ---------- Sections communes claires / sombres ---------- */
+
 .df-section--light {
     background: var(--df-gray);
     color: var(--df-black);
@@ -420,7 +420,7 @@
 
 .df-section--dark {
     background: var(--df-black);
-    color: #fff;
+    color: black;
 }
 
 .df-section--dark .df-glow-top {
@@ -431,7 +431,7 @@
     z-index: 0;
 }
 
-/* ---------- Cards génériques ---------- */
+
 .df-card {
     background: #fff;
     border: 2px solid rgba(0, 0, 0, 0.1);
@@ -451,7 +451,7 @@
     .df-grid--2 { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* ---------- Live scores ---------- */
+
 .df-match-card {
     background: #fff;
     border: 2px solid rgba(0, 0, 0, 0.1);
@@ -561,7 +561,7 @@
     animation: df-live-progress 3s ease-in-out infinite;
 }
 
-/* ---------- Standings ---------- */
+
 .df-standings-table {
     background: #fff;
     border: 2px solid rgba(0, 0, 0, 0.1);
@@ -679,7 +679,7 @@
     color: rgba(0, 0, 0, 0.4);
 }
 
-/* ---------- Forum features ---------- */
+
 .df-feature-card {
     background: #fff;
     border: 2px solid rgba(0, 0, 0, 0.1);
@@ -829,7 +829,7 @@
     line-height: 1.6;
 }
 
-/* ---------- Articles ---------- */
+
 .df-articles-head {
     display: flex;
     flex-direction: column;
@@ -922,7 +922,7 @@
     gap: 16px;
 }
 
-/* ---------- Starter pack ---------- */
+
 .df-starter {
     background: var(--df-black);
     border-radius: 24px;
@@ -1063,7 +1063,7 @@
     text-align: center;
 }
 
-/* ---------- Footer ---------- */
+
 .df-footer {
     background: var(--df-black);
     color: #fff;
@@ -1229,7 +1229,7 @@
     white-space: nowrap;
 }
 
-/* ---------- Scroll reveal (piloté par landing_controller.js) ---------- */
+
 .df-landing [data-reveal] {
     opacity: 0;
     transform: translateY(28px);
@@ -1241,7 +1241,7 @@
     transform: translateY(0);
 }
 
-/* ---------- Animations ---------- */
+
 @keyframes df-pulse {
     0%, 100% { transform: scale(1); opacity: 1; }
     50% { transform: scale(1.3); opacity: 0.6; }

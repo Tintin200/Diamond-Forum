@@ -16,7 +16,10 @@
         </div>
 
         {% if app.user %}
-            <a href="{{ path('app_chat') }}" class="df-btn df-btn--primary df-nav__cta">Accéder au forum</a>
+            <div class="df-nav__cta-group">
+                <a href="{{ path('app_chat') }}" class="df-btn df-btn--primary df-nav__cta">Accéder au forum</a>
+                <a href="{{ path('app_logout') }}" class="df-btn df-btn--outline df-nav__cta df-btn--logout">Se déconnecter</a>
+            </div>
         {% else %}
             <a href="{{ path('app_login') }}" class="df-btn df-btn--primary df-nav__cta">Connexion</a>
         {% endif %}
@@ -33,7 +36,10 @@
         <a href="{{ path('app_about') }}">A Propos</a>
         <a href="#starter">Boutique</a>
         {% if app.user %}
-            <a href="{{ path('app_chat') }}" class="df-btn df-btn--primary">Accéder au forum</a>
+            <div style="display:flex;gap:8px;align-items:center;">
+                <a href="{{ path('app_chat') }}" class="df-btn df-btn--primary">Accéder au forum</a>
+                <a href="{{ path('app_logout') }}" class="df-btn df-btn--outline df-btn--logout">Se déconnecter</a>
+            </div>
         {% else %}
             <a href="{{ path('app_login') }}" class="df-btn df-btn--primary">Connexion</a>
         {% endif %}

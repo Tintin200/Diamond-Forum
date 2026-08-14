@@ -1,0 +1,15 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Remove CSS comments",
+			"type": "shell",
+			"command": "python",
+			"args": [
+				"-c",
+				"import re, pathlib\nroot=pathlib.Path(r'c:\\Users\\aymou\\Documents\\Bachelor 3\\Projet final\\baseball_v1\\assets\\styles')\nfor path in root.glob('*.css'):\n    text=path.read_text(encoding='utf-8')\n    new=re.sub(r'/\\*.*?\\*/','',text,flags=re.S)\n    if new!=text:\n        path.write_text(new,encoding='utf-8')\n        print(f'updated {path.name}')"
+			],
+			"problemMatcher": []
+		}
+	]
+}
