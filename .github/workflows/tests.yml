@@ -1,0 +1,79 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  phpunit:
+    name: PHPUnit
+    runs-on: ubuntu-latest
+
+    services:
+      mariadb:
+        image: mariadb:11.1
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: diamond_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mariadb-admin ping -h 127.0.0.1 -uroot -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+    env:
+      APP_ENV: test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: ctype, iconv, mbstring, xml, dom, curl, pdo, pdo_mysql, intl, zip
+          coverage: none
+          tools: composer:v2
+
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Composer packages
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress --optimize-autoloader
+
+      - name: Wait for MariaDB
+        run: |
+          for i in {1..30}; do
+            if mysqladmin ping -h 127.0.0.1 -uroot -proot --silent; then
+              echo "MariaDB is up"
+              break
+            fi
+            echo "Waiting for MariaDB..."
+            sleep 2
+          done
+
+      - name: Prepare test database
+        run: |
+          php bin/console doctrine:database:create --env=test --if-not-exists --no-interaction
+          php bin/console doctrine:migrations:migrate --env=test --no-interaction
+
+      - name: Load fixtures
+        run: php bin/console doctrine:fixtures:load --env=test --no-interaction
+
+      - name: Run PHPUnit tests
+        run: vendor/bin/phpunit --testdox
