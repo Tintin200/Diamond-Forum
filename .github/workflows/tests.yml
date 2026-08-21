@@ -13,15 +13,16 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      mariadb:
-        image: mariadb:11.1
+      postgres:
+        image: postgres:16
         env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: diamond_test
+          POSTGRES_USER: app
+          POSTGRES_PASSWORD: "!ChangeMe!"
+          POSTGRES_DB: diamond_test
         ports:
-          - 3306:3306
+          - 5432:5432
         options: >-
-          --health-cmd="mariadb-admin ping -h 127.0.0.1 -uroot -proot"
+          --health-cmd="pg_isready -U app -d diamond_test"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=10
@@ -37,7 +38,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
-          extensions: ctype, iconv, mbstring, xml, dom, curl, pdo, pdo_mysql, intl, zip
+          extensions: ctype, iconv, mbstring, xml, dom, curl, pdo, pdo_pgsql, intl, zip
           coverage: none
           tools: composer:v2
 
@@ -56,14 +57,14 @@ jobs:
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist --no-progress --optimize-autoloader
 
-      - name: Wait for MariaDB
+      - name: Wait for PostgreSQL
         run: |
           for i in {1..30}; do
-            if mysqladmin ping -h 127.0.0.1 -uroot -proot --silent; then
-              echo "MariaDB is up"
+            if pg_isready -h 127.0.0.1 -p 5432 -U app -d diamond_test; then
+              echo "PostgreSQL is up"
               break
             fi
-            echo "Waiting for MariaDB..."
+            echo "Waiting for PostgreSQL..."
             sleep 2
           done
 
