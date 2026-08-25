@@ -58,7 +58,10 @@ jobs:
             ${{ runner.os }}-composer-
 
       - name: Install dependencies
-        run: composer install --no-interaction --prefer-dist --no-progress --optimize-autoloader
+        run: composer install --no-interaction --prefer-dist --no-progress --optimize-autoloader --no-scripts
+
+      - name: Clear Symfony cache for test environment
+        run: php bin/console cache:clear --env=test --no-interaction
 
       - name: Generate JWT keys
         run: |
