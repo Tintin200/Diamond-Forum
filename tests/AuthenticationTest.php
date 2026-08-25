@@ -23,7 +23,7 @@ class AuthenticationTest extends WebTestCase
             '/api/login_check',
             [],
             [],
-            ['CONTENT_TYPE' => 'application/json'],
+            ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'],
             json_encode([
                 'email' => 'aymerick@diamond.com',
                 'password' => 'wrong_password'
@@ -37,7 +37,7 @@ class AuthenticationTest extends WebTestCase
             '/api/login_check',
             [],
             [],
-            ['CONTENT_TYPE' => 'application/json'],
+            ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'],
             json_encode([
                 'email' => 'aymerick@diamond.com',
                 'password' => 'password'
@@ -72,6 +72,11 @@ class AuthenticationTest extends WebTestCase
         // Find Aymerick and Admin
         $aymerick = $userRepository->findOneByEmail('aymerick@diamond.com');
         $admin = $userRepository->findOneByEmail('admin@diamond.com');
+        
+        // Skip test if users not found
+        if (!$aymerick || !$admin) {
+            $this->markTestSkipped('Test users not found in database');
+        }
 
         // Find an article not owned by Aymerick
         $allArticles = $articleRepository->findAll();
@@ -79,10 +84,10 @@ class AuthenticationTest extends WebTestCase
         $ownArticle = null;
 
         foreach ($allArticles as $art) {
-            if ($art->getAuthor()->getId() !== $aymerick->getId()) {
-                $otherArticle = $art;
-            } else {
+            if ($art->getAuthor() !== null && $art->getAuthor()->getId() === $aymerick->getId()) {
                 $ownArticle = $art;
+            } elseif ($art->getAuthor() !== null) {
+                $otherArticle = $art;
             }
         }
 

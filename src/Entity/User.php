@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Table(name: 'app_user')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[UniqueEntity(fields: ['email'], message: 'Cette adresse email est déjà utilisée par un autre compte.')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -133,6 +134,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $data["\0" . self::class . "\0password"] = hash('crc32c', $this->password);
 
         return $data;
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     */
+    public function __unserialize(array $data): void
+    {
+        foreach ($data as $key => $value) {
+            // Handle private properties with null bytes in key
+            if (str_starts_with($key, "\0")) {
+                $parts = explode("\0", $key, 3);
+                if (count($parts) === 3) {
+                    $property = $parts[2];
+                    $this->{$property} = $value;
+                }
+            } else {
+                $this->{$key} = $value;
+            }
+        }
     }
 
     /**

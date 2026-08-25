@@ -14,13 +14,15 @@
         <h1>Modifier l'article</h1>
         <p>Modifiez vos analyses, actualités ou récits de match ci-dessous.</p>
 
-        {% for label, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="alert {{ label == 'error' ? 'alert-danger' : (label == 'success' ? 'success' : 'warning') }}">
-                    {{ message }}
-                </div>
+        {% if app is defined %}
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert {{ label == 'error' ? 'alert-danger' : (label == 'success' ? 'success' : 'warning') }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
             {% endfor %}
-        {% endfor %}
+        {% endif %}
 
         <div class="card">
             {{ form_start(form) }}
