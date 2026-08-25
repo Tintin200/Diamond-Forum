@@ -42,6 +42,9 @@ jobs:
           coverage: none
           tools: composer:v2
 
+      - name: Display PHP info
+        run: php -v && php -m
+
       - name: Get Composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
@@ -57,24 +60,33 @@ jobs:
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist --no-progress --optimize-autoloader
 
+      - name: Generate JWT keys
+        run: |
+          mkdir -p config/jwt
+          php -r "\$privateKey = openssl_pkey_new(['digest_alg' => 'sha512', 'private_key_bits' => 4096, 'private_key_type' => OPENSSL_KEYTYPE_RSA]); openssl_pkey_export(\$privateKey, \$privateKeyString); file_put_contents('config/jwt/private.pem', \$privateKeyString); \$publicKey = openssl_pkey_get_details(\$privateKey)['key']; file_put_contents('config/jwt/public.pem', \$publicKey);"
+
       - name: Wait for PostgreSQL
         run: |
           for i in {1..30}; do
-            if pg_isready -h 127.0.0.1 -p 5432 -U app -d diamond_test; then
+            if pg_isready -h localhost -p 5432 -U app -d diamond_test; then
               echo "PostgreSQL is up"
               break
             fi
             echo "Waiting for PostgreSQL..."
             sleep 2
           done
+          if ! pg_isready -h localhost -p 5432 -U app -d diamond_test; then
+            echo "PostgreSQL failed to start"
+            exit 1
+          fi
 
       - name: Prepare test database
         run: |
-          php bin/console doctrine:database:create --env=test --if-not-exists --no-interaction
-          php bin/console doctrine:migrations:migrate --env=test --no-interaction
+          php bin/console doctrine:database:create --env=test --if-not-exists --no-interaction || true
+          php bin/console doctrine:migrations:migrate --env=test --no-interaction --allow-no-migration
 
       - name: Load fixtures
-        run: php bin/console doctrine:fixtures:load --env=test --no-interaction
+        run: php bin/console doctrine:fixtures:load --env=test --no-interaction --purge-with-truncate
 
       - name: Run PHPUnit tests
-        run: vendor/bin/phpunit --testdox
+        run: vendor/bin/phpunit --testdox --verbose

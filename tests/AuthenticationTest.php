@@ -23,7 +23,7 @@ class AuthenticationTest extends WebTestCase
             '/api/login_check',
             [],
             [],
-            ['CONTENT_TYPE' => 'application/json'],
+            ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'],
             json_encode([
                 'email' => 'aymerick@diamond.com',
                 'password' => 'wrong_password'
@@ -37,7 +37,7 @@ class AuthenticationTest extends WebTestCase
             '/api/login_check',
             [],
             [],
-            ['CONTENT_TYPE' => 'application/json'],
+            ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'],
             json_encode([
                 'email' => 'aymerick@diamond.com',
                 'password' => 'password'

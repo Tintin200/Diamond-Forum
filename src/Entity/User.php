@@ -136,6 +136,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @param array<string, mixed> $data
+     */
+    public function __unserialize(array $data): void
+    {
+        foreach ($data as $key => $value) {
+            // Handle private properties with null bytes in key
+            if (str_starts_with($key, "\0")) {
+                $parts = explode("\0", $key, 3);
+                if (count($parts) === 3) {
+                    $property = $parts[2];
+                    $this->{$property} = $value;
+                }
+            } else {
+                $this->{$key} = $value;
+            }
+        }
+    }
+
+    /**
      * @return Collection<int, Article>
      */
     public function getArticles(): Collection
