@@ -57,7 +57,7 @@ class ArticleController extends AbstractController
         }
 
         // Access check: only author or admin can edit
-        if ($article->getAuthor() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
+        if ($article->getAuthor()->getId() !== $this->getUser()->getId() && !$this->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException("Vous n'êtes pas autorisé à modifier cet article.");
         }
 
@@ -87,7 +87,7 @@ class ArticleController extends AbstractController
         }
 
         // Access check: only author or admin can delete
-        if ($article->getAuthor() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
+        if ($article->getAuthor()->getId() !== $this->getUser()->getId() && !$this->isGranted('ROLE_ADMIN')) {
             throw $this->createAccessDeniedException("Vous n'êtes pas autorisé à supprimer cet article.");
         }
 
