@@ -92,4 +92,4 @@ jobs:
         run: php bin/console doctrine:fixtures:load --env=test --no-interaction --purge-with-truncate
 
       - name: Run PHPUnit tests
-        run: vendor/bin/phpunit --testdox --verbose
+        run: vendor/bin/phpunit --testdox
