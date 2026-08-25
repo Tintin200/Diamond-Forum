@@ -85,7 +85,8 @@ jobs:
 
       - name: Prepare test database
         run: |
-          php bin/console doctrine:database:create --env=test --if-not-exists --no-interaction || true
+          php bin/console doctrine:database:drop --env=test --force --no-interaction || true
+          php bin/console doctrine:database:create --env=test --no-interaction
           php bin/console doctrine:migrations:migrate --env=test --no-interaction --allow-no-migration
 
       - name: Load fixtures

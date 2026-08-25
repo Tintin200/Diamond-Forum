@@ -57,8 +57,12 @@ class ArticleController extends AbstractController
         }
 
         // Access check: only author or admin can edit
-        if ($article->getAuthor()->getId() !== $this->getUser()->getId() && !$this->isGranted('ROLE_ADMIN')) {
-            throw $this->createAccessDeniedException("Vous n'êtes pas autorisé à modifier cet article.");
+        $currentUser = $this->getUser();
+        $isAdmin = $currentUser && in_array('ROLE_ADMIN', $currentUser->getRoles(), true);
+        $isOwner = $article->getAuthor() !== null && $article->getAuthor()->getId() === $currentUser->getId();
+        
+        if (!$isOwner && !$isAdmin) {
+            return new Response('Accès interdit', Response::HTTP_FORBIDDEN);
         }
 
         $form = $this->createForm(ArticleType::class, $article);
@@ -87,8 +91,12 @@ class ArticleController extends AbstractController
         }
 
         // Access check: only author or admin can delete
-        if ($article->getAuthor()->getId() !== $this->getUser()->getId() && !$this->isGranted('ROLE_ADMIN')) {
-            throw $this->createAccessDeniedException("Vous n'êtes pas autorisé à supprimer cet article.");
+        $currentUser = $this->getUser();
+        $isAdmin = $currentUser && in_array('ROLE_ADMIN', $currentUser->getRoles(), true);
+        $isOwner = $article->getAuthor() !== null && $article->getAuthor()->getId() === $currentUser->getId();
+        
+        if (!$isOwner && !$isAdmin) {
+            return new Response('Accès interdit', Response::HTTP_FORBIDDEN);
         }
 
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
