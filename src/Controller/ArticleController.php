@@ -70,10 +70,6 @@ class ArticleController extends AbstractController
             return new Response('Accès interdit', Response::HTTP_FORBIDDEN);
         }
 
-        // Temporary debug: return simple response to avoid form/template issues
-        return new Response('Edit form would be here', Response::HTTP_OK);
-        
-        /*
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
@@ -89,7 +85,14 @@ class ArticleController extends AbstractController
             'form' => $form->createView(),
             'article' => $article,
         ]);
-        */
+    }
+
+    #[Route('/articles/{id}', name: 'app_article_show')]
+    public function show(Article $article): Response
+    {
+        return $this->render('article/show.html.twig', [
+            'article' => $article,
+        ]);
     }
 
     #[Route('/articles/{id}/supprimer', name: 'app_article_delete', methods: ['POST'])]

@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ article.sujet }} - Diamond Forum{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('styles/forum.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="df-forum">
+    <div class="df-forum__container">
+        {# Brand #}
+        <a href="{{ path('app_home') }}" class="df-forum__brand brand-link">
+            <span class="df-forum__brand-badge">DF</span>
+            <span class="df-forum__brand-name">DIAMOND FORUM</span>
+        </a>
+
+        {# Header #}
+        <header class="df-forum__header">
+            <span class="df-forum__eyebrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+                Article
+            </span>
+            <h1>{{ article.sujet }}</h1>
+            <p>Publie par <strong>{{ article.auteur }}</strong></p>
+        </header>
+
+        {# Article content #}
+        <section class="df-forum__section">
+            <div class="article-detail">
+                {% if article.image %}
+                    <div class="article-detail__image">
+                        <img src="{{ article.image }}" alt="{{ article.sujet }}" />
+                    </div>
+                {% endif %}
+                
+                <div class="article-detail__content">
+                    {{ article.contenu }}
+                </div>
+
+                {% if article.tags %}
+                    <div class="article-detail__tags">
+                        {% for tag in article.tags|split(',') %}
+                            <span class="badge primary">{{ tag|trim }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="article-detail__stats">
+                    <span class="article-detail__stat">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M7 10v12"/>
+                            <path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/>
+                        </svg>
+                        {{ article.articleLikes|length }} likes
+                    </span>
+                    <span class="article-detail__stat">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                        {{ article.articleVues|length }} vues
+                    </span>
+                </div>
+
+                {% if app.user and (article.author == app.user or is_granted('ROLE_ADMIN')) %}
+                    <div class="article-detail__actions">
+                        <a href="{{ path('app_article_edit', {id: article.id}) }}" class="btn" style="font-size: 0.85rem; padding: 8px 16px;">
+                            Modifier
+                        </a>
+                        <form method="post" action="{{ path('app_article_delete', {id: article.id}) }}" style="display: inline;" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cet article ? Cette action est irreversible.');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+                            <button type="submit" class="btn danger" style="font-size: 0.85rem; padding: 8px 16px;">
+                                Supprimer
+                            </button>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <div style="margin-top: 40px; text-align: center;">
+            <a href="{{ path('app_news') }}" class="df-forum__cta" style="display: inline-flex; align-items: center; gap: 8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="19" y1="12" x2="5" y2="12"/>
+                    <polyline points="12 19 5 12 12 5"/>
+                </svg>
+                Retour aux actualites
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
