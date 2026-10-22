@@ -1,0 +1,25 @@
+framework:
+    rate_limiter:
+        # Limite globale pour l'API
+        api:
+            policy: 'sliding_window'
+            limit: 100  # 100 requêtes
+            interval: '1 minute'  # par minute
+        
+        # Limite plus stricte pour les endpoints sensibles (login, register)
+        auth:
+            policy: 'sliding_window'
+            limit: 10  # 10 requêtes
+            interval: '1 minute'  # par minute
+        
+        # Limite pour les endpoints de l'API externe (Baseball API)
+        external_api:
+            policy: 'sliding_window'
+            limit: 60  # 60 requêtes
+            interval: '1 minute'  # par minute
+        
+        # Limite pour les pages sensibles (login, register)
+        sensitive_pages:
+            policy: 'sliding_window'
+            limit: 20  # 20 requêtes
+            interval: '1 minute'  # par minute

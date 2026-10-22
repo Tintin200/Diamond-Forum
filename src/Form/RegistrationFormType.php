@@ -12,8 +12,17 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * RegistrationFormType - Formulaire pour l'inscription des utilisateurs.
+ * Champs : email, agreeTerms, plainPassword (non mappés à l'entité).
+ */
 class RegistrationFormType extends AbstractType
 {
+    /**
+     * Construit le formulaire avec les champs : email, agreeTerms, plainPassword.
+     * @param FormBuilderInterface $builder Builder du formulaire
+     * @param array $options Options du formulaire
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -27,8 +36,8 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
+                // au lieu d'être défini directement sur l'objet,
+                // ce champ est lu et encodé dans le controller
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
@@ -36,9 +45,9 @@ class RegistrationFormType extends AbstractType
                         message: 'Veuillez entrer un mot de passe.',
                     ),
                     new Length(
-                        min: 6,
-                        minMessage: 'Votre mot de passe doit faire au moins {{ limit }} caractères.',
-                        // max length allowed by Symfony for security reasons
+                        min: 12,
+                        minMessage: 'Votre mot de passe doit faire au moins {{ limit }} caractères pour des raisons de securite.',
+                        // longueur max autorisée par Symfony pour des raisons de sécurité
                         max: 4096,
                     ),
                 ],
@@ -46,6 +55,10 @@ class RegistrationFormType extends AbstractType
         ;
     }
 
+    /**
+     * Configure les options du formulaire. Définit data_class : User::class.
+     * @param OptionsResolver $resolver Résolveur d'options
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

@@ -1,10 +1,28 @@
 nelmio_cors:
     defaults:
         origin_regex: true
+        # Restreint aux origines spécifiques - à configurer dans .env
         allow_origin: ['%env(CORS_ALLOW_ORIGIN)%']
-        allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE']
-        allow_headers: ['Content-Type', 'Authorization']
-        expose_headers: ['Link']
+        # Méthodes autorisées - seulement celles nécessaires
+        allow_methods: ['GET', 'POST', 'OPTIONS']
+        # En-têtes autorisés - minimum nécessaire
+        allow_headers: ['Content-Type', 'Authorization', 'X-Requested-With']
+        # En-têtes exposés au client
+        expose_headers: ['Link', 'X-RateLimit-Limit', 'X-RateLimit-Remaining']
+        # Durée de cache des pré-vérifications CORS (1 heure)
         max_age: 3600
+        # Autorise les credentials (cookies, headers d'auth)
+        allow_credentials: false
+        # Désactive la vérification de l'origine pour les requêtes simples
+        forced_allow_origin_value: ~
     paths:
+        # CORS activé pour toutes les routes
         '^/': null
+        # Configuration spécifique pour l'API
+        '^/api':
+            allow_origin: ['%env(CORS_ALLOW_ORIGIN)%']
+            allow_methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE']
+            allow_headers: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-CSRF-Token']
+            expose_headers: ['Link', 'X-RateLimit-Limit', 'X-RateLimit-Remaining']
+            max_age: 3600
+            allow_credentials: true
