@@ -7,8 +7,20 @@ use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Psr\Log\LoggerInterface;
 
+/**
+ * BaseballApiService - Service pour interagir avec l'API Baseball (API-Sports).
+ * Centralise les requêtes (matchs, ligues, saisons, équipes, classements, statistiques) avec cache et gestion des erreurs.
+ */
 class BaseballApiService
 {
+    /**
+     * Constructeur - Injecte les dépendances nécessaires.
+     * @param HttpClientInterface $httpClient Client HTTP
+     * @param CacheInterface $cache Système de cache
+     * @param LoggerInterface $logger Pour logger les erreurs
+     * @param string $baseballApiUrl URL de base de l'API Baseball
+     * @param string $baseballApiKey Clé d'API pour l'authentification
+     */
     public function __construct(
         private HttpClientInterface $httpClient,
         private CacheInterface $cache,
@@ -18,12 +30,11 @@ class BaseballApiService
     ) {}
 
     /**
-     * Helper to perform requests to the external API-Sports Baseball API.
-     *
-     * @param string $endpoint The API endpoint (e.g. 'games')
-     * @param array $query Query parameters
-     * @param int $cacheTtl Time to live in seconds for the cache
-     * @return array The response array containing the API data
+     * Effectue une requête générique vers l'API Baseball avec cache et gestion des erreurs.
+     * @param string $endpoint Point d'accès de l'API
+     * @param array $query Paramètres de requête
+     * @param int $cacheTtl Durée de vie du cache en secondes
+     * @return array Données retournées par l'API (ou tableau vide en cas d'erreur)
      */
     private function request(string $endpoint, array $query = [], int $cacheTtl = 300): array
     {
@@ -78,64 +89,68 @@ class BaseballApiService
     }
 
     /**
-     * Get leagues.
-     *
-     * Parameters: id, name, country, type, season
+     * Récupère la liste des ligues de baseball.
+     * @param array $query Paramètres de filtrage (optionnel)
+     * @return array Liste des ligues correspondantes
      */
     public function getLeagues(array $query = []): array
     {
-        // Leagues change very rarely, cache for 24 hours
+        // Les ligues changent très rarement, cache pour 24 heures
         return $this->request('leagues', $query, 86400);
     }
 
     /**
-     * Get seasons.
+     * Récupère la liste des saisons disponibles.
+     * @return array Liste de toutes les saisons disponibles
      */
     public function getSeasons(): array
     {
-        // Seasons list changes very rarely, cache for 24 hours
+        // La liste des saisons change très rarement, cache pour 24 heures
         return $this->request('seasons', [], 86400);
     }
 
     /**
-     * Get teams.
-     *
-     * Parameters: id, name, league, season
+     * Récupère la liste des équipes de baseball.
+     * @param array $query Paramètres de filtrage
+     * @return array Liste des équipes correspondantes
      */
     public function getTeams(array $query): array
     {
-        // Team details change rarely, cache for 12 hours
+        // Les détails des équipes changent rarement, cache pour 12 heures
         return $this->request('teams', $query, 43200);
     }
 
     /**
-     * Get games.
-     *
-     * Parameters: id, date, league, season, team, status, live, timezone
+     * Récupère la liste des matchs de baseball.
+     * @param array $query Paramètres de filtrage (optionnel)
+     * @return array Liste des matchs correspondants
      */
     public function getGames(array $query = []): array
     {
-        // Check if query is targeting live scores or today's matches
+        // Vérifie si la requête cible les matchs en direct ou les matchs du jour
         $isLive = isset($query['live']) || (isset($query['date']) && $query['date'] === date('Y-m-d'));
-        // Cache live scores for 30s, and future/past games for 10 minutes
+        // Cache les scores en direct pour 30s, et les matchs passés/futurs pour 10 minutes
         $ttl = $isLive ? 30 : 600;
 
         return $this->request('games', $query, $ttl);
     }
 
     /**
-     * Get standings.
-     *
-     * Parameters: league (required), season (required), team, group
+     * Récupère les classements des ligues de baseball.
+     * @param array $query Paramètres de filtrage (league et season sont requis)
+     * @return array Classement correspondant
      */
     public function getStandings(array $query): array
     {
-        // Standings update after match results, cache for 30 minutes
+        // Les classements sont mis à jour après les résultats des matchs, cache pour 30 minutes
         return $this->request('standings', $query, 1800);
     }
 
     /**
-     * Get the most recent standings dynamically (self-healing for free plans)
+     * Récupère les classements les plus récents dynamiquement.
+     * Teste les années de l'année courante à 2022 jusqu'à trouver des données valides.
+     * @param int $leagueId ID de la ligue (défaut: 1 pour MLB)
+     * @return array Tableau contenant 'season' et 'data'
      */
     public function getMostRecentStandings(int $leagueId = 1): array
     {
@@ -159,12 +174,13 @@ class BaseballApiService
     }
 
     /**
-     * Get team statistics.
-     *
-     * Parameters: team (required), league (required), season (required)
+     * Récupère les statistiques d'une équipe.
+     * @param array $query Paramètres de filtrage (team, league et season sont requis)
+     * @return array Statistiques de l'équipe
      */
     public function getTeamStatistics(array $query): array
     {
+        // Cache pour 1 heure (3600 secondes)
         return $this->request('teams/statistics', $query, 3600);
     }
 }

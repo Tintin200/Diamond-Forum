@@ -10,6 +10,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * User - Entité représentant un utilisateur du système.
+ * Implémente UserInterface et PasswordAuthenticatedUserInterface pour l'authentification.
+ * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Table(name='app_user')
+ * @UniqueEntity(fields={'email'}, message='Cette adresse email est déjà utilisée.')
+ */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'app_user')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -37,23 +44,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     /**
-     * @var Collection<int, Article>
+     * @var Collection<int, Article> Articles publiés par cet utilisateur
      */
     #[ORM\OneToMany(targetEntity: Article::class, mappedBy: 'author')]
     private Collection $articles;
 
     /**
-     * @var Collection<int, ArticleLike>
+     * @var Collection<int, ArticleLike> Likes posés par cet utilisateur
      */
     #[ORM\OneToMany(targetEntity: ArticleLike::class, mappedBy: 'user')]
     private Collection $articleLikes;
 
     /**
-     * @var Collection<int, ArticleVue>
+     * @var Collection<int, ArticleVue> Vues effectuées par cet utilisateur
      */
     #[ORM\OneToMany(targetEntity: ArticleVue::class, mappedBy: 'user')]
     private Collection $articleVues;
 
+    /**
+     * Constructeur - Initialise les collections pour les relations.
+     * @param void
+     */
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -61,16 +72,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->articleVues = new ArrayCollection();
     }
 
+    /**
+     * Retourne l'ID de l'utilisateur.
+     *
+     * @return int|null L'ID de l'utilisateur (null si non persiste)
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * Retourne l'adresse email de l'utilisateur.
+     *
+     * @return string|null L'adresse email
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * Définit l'adresse email de l'utilisateur.
+     *
+     * @param string $email La nouvelle adresse email
+     * @return self Retourne l'instance courante pour le chaînage
+     */
     public function setEmail(string $email): static
     {
         $this->email = $email;
@@ -79,9 +106,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
+     * Retourne un identifiant visuel pour cet utilisateur. Implémente UserInterface::getUserIdentifier().
+     * @return string L'email de l'utilisateur
      */
     public function getUserIdentifier(): string
     {
@@ -89,19 +115,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @see UserInterface
+     * Retourne les rôles de l'utilisateur. Implémente UserInterface::getRoles().
+     * Garantit que chaque utilisateur a au moins le rôle ROLE_USER.
      */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
+        // Garantit que chaque utilisateur a au moins le rôle ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
 
     /**
-     * @param list<string> $roles
+     * Définit les rôles de l'utilisateur. Note : ROLE_USER sera ajouté automatiquement dans getRoles().
+     * @param array $roles Liste des rôles à attribuer
+     * @return self Retourne l'instance courante pour le chaînage
      */
     public function setRoles(array $roles): static
     {
@@ -111,13 +140,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @see PasswordAuthenticatedUserInterface
+     * Retourne le mot de passe haché. Implémente PasswordAuthenticatedUserInterface::getPassword().
+     * @return string|null Le mot de passe haché
      */
     public function getPassword(): ?string
     {
         return $this->password;
     }
 
+    /**
+     * Définit le mot de passe haché.
+     * IMPORTANT : Cette méthode attend un mot de passe déjà haché.
+     * @param string $password Le mot de passe haché
+     * @return self Retourne l'instance courante pour le chaînage
+     */
     public function setPassword(string $password): static
     {
         $this->password = $password;
@@ -126,7 +162,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Ensure the session doesn't contain actual password hashes by CRC32C-hashing them, as supported since Symfony 7.3.
+     * Sérialise l'utilisateur en masquant le hash du mot de passe.
+     * Remplace le hash par CRC32C avant sérialisation.
+     * @return array Données sérialisées avec le mot de passe masqué
      */
     public function __serialize(): array
     {
@@ -137,12 +175,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @param array<string, mixed> $data
+     * Désérialise l'utilisateur.
+     * Gère la restauration des propriétés privées (avec les null bytes dans les clés).
+     * @param array $data Données sérialisées
      */
     public function __unserialize(array $data): void
     {
         foreach ($data as $key => $value) {
-            // Handle private properties with null bytes in key
+            // Gère les propriétés privées avec des null bytes dans la clé
             if (str_starts_with($key, "\0")) {
                 $parts = explode("\0", $key, 3);
                 if (count($parts) === 3) {
@@ -156,13 +196,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Article>
+     * Retourne la collection des articles publiés par cet utilisateur.
+     *
+     * @return Collection<int, Article> Tous les articles publiés
      */
     public function getArticles(): Collection
     {
         return $this->articles;
     }
 
+    /**
+     * Ajoute un article à la collection de l'utilisateur. Gère la relation bidirectionnelle avec Article.
+     * @param Article $article L'article à ajouter
+     * @return self Retourne l'instance courante pour le chaînage
+     */
     public function addArticle(Article $article): static
     {
         if (!$this->articles->contains($article)) {
@@ -173,10 +220,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * Retire un article de la collection de l'utilisateur. Gère la relation bidirectionnelle avec Article.
+     * @param Article $article L'article à retirer
+     * @return self Retourne l'instance courante pour le chaînage
+     */
     public function removeArticle(Article $article): static
     {
         if ($this->articles->removeElement($article)) {
-            // set the owning side to null (unless already changed)
+            // Met à jour le côté possesseur de la relation
             if ($article->getAuthor() === $this) {
                 $article->setAuthor(null);
             }
@@ -186,13 +238,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, ArticleLike>
+     * Retourne la collection des likes posés par cet utilisateur.
+     *
+     * @return Collection<int, ArticleLike> Tous les likes de l'utilisateur
      */
     public function getArticleLikes(): Collection
     {
         return $this->articleLikes;
     }
 
+    /**
+     * Ajoute un like à la collection de l'utilisateur. Gère la relation bidirectionnelle avec ArticleLike.
+     * @param ArticleLike $articleLike Le like à ajouter
+     * @return self Retourne l'instance courante pour le chaînage
+     */
     public function addArticleLike(ArticleLike $articleLike): static
     {
         if (!$this->articleLikes->contains($articleLike)) {
@@ -203,10 +262,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * Retire un like de la collection de l'utilisateur. Gère la relation bidirectionnelle avec ArticleLike.
+     * @param ArticleLike $articleLike Le like à retirer
+     * @return self Retourne l'instance courante pour le chaînage
+     */
     public function removeArticleLike(ArticleLike $articleLike): static
     {
         if ($this->articleLikes->removeElement($articleLike)) {
-            // set the owning side to null (unless already changed)
+            // Met à jour le côté possesseur de la relation
             if ($articleLike->getUser() === $this) {
                 $articleLike->setUser(null);
             }
@@ -216,13 +280,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, ArticleVue>
+     * Retourne la collection des vues effectuées par cet utilisateur.
+     *
+     * @return Collection<int, ArticleVue> Toutes les vues de l'utilisateur
      */
     public function getArticleVues(): Collection
     {
         return $this->articleVues;
     }
 
+    /**
+     * Ajoute une vue à la collection de l'utilisateur. Gère la relation bidirectionnelle avec ArticleVue.
+     * @param ArticleVue $articleVue La vue à ajouter
+     * @return self Retourne l'instance courante pour le chaînage
+     */
     public function addArticleVue(ArticleVue $articleVue): static
     {
         if (!$this->articleVues->contains($articleVue)) {
@@ -233,10 +304,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * Retire une vue de la collection de l'utilisateur. Gère la relation bidirectionnelle avec ArticleVue.
+     * @param ArticleVue $articleVue La vue à retirer
+     * @return self Retourne l'instance courante pour le chaînage
+     */
     public function removeArticleVue(ArticleVue $articleVue): static
     {
         if ($this->articleVues->removeElement($articleVue)) {
-            // set the owning side to null (unless already changed)
+            // Met à jour le côté possesseur de la relation
             if ($articleVue->getUser() === $this) {
                 $articleVue->setUser(null);
             }

@@ -7,8 +7,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ * SecurityController - Gère les pages de login et logout des utilisateurs.
+ */
 class SecurityController extends AbstractController
 {
+    /**
+     * Affiche le formulaire de login.
+     * Récupère la dernière erreur d'authentification et le dernier nom d'utilisateur saisi.
+     * @param AuthenticationUtils $authenticationUtils Utilitaire Symfony pour l'authentification
+     * @return Response Page de login rendue avec Twig
+     */
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -24,6 +33,11 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
+    /**
+     * Gère la déconnexion de l'utilisateur.
+     * Méthode requise par Symfony, interceptée par le firewall.
+     * @throws \LogicException Cette méthode doit rester vide
+     */
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {

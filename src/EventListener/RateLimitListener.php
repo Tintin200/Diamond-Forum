@@ -5,7 +5,7 @@ namespace App\EventListener;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
-use Symfony\Component\RateLimiter\RateLimiterFactory;
+use Symfony\Component\RateLimiter\RateLimiterFactoryInterface;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 
 /**
@@ -19,14 +19,14 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 final class RateLimitListener
 {
     /**
-     * @param RateLimiterFactory $apiLimiter Factory pour le rate limiter de l'API
-     * @param RateLimiterFactory $authLimiter Factory pour le rate limiter d'authentification
-     * @param RateLimiterFactory $sensitivePagesLimiter Factory pour les pages sensibles
+     * @param RateLimiterFactoryInterface $apiLimiter Factory pour le rate limiter de l'API
+     * @param RateLimiterFactoryInterface $authLimiter Factory pour le rate limiter d'authentification
+     * @param RateLimiterFactoryInterface $sensitivePagesLimiter Factory pour les pages sensibles
      */
     public function __construct(
-        private RateLimiterFactory $apiLimiter,
-        private RateLimiterFactory $authLimiter,
-        private RateLimiterFactory $sensitivePagesLimiter
+        private RateLimiterFactoryInterface $apiLimiter,
+        private RateLimiterFactoryInterface $authLimiter,
+        private RateLimiterFactoryInterface $sensitivePagesLimiter
     ) {}
 
     /**

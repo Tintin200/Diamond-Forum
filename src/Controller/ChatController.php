@@ -7,9 +7,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-
+/**
+ * ChatController - Affiche une page de type forum avec les articles organisés par catégories.
+ * Affiche les 5 articles les plus récents et compte les articles par catégorie via leurs tags.
+ */
 final class ChatController extends AbstractController
 {
+    /**
+     * Affiche la page du forum/chat avec les articles par catégorie.
+     * Compte les articles par tag pour les catégories MLB, Mercato et Guides.
+     * @param ArticleRepository $articleRepository Repository pour les requêtes personnalisées
+     * @return Response Page du forum rendue avec Twig
+     */
     #[Route('/chat', name: 'app_chat')]
     public function index(ArticleRepository $articleRepository): Response
     {

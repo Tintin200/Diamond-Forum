@@ -7,8 +7,42 @@ use App\Repository\ArticleRepository;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * AuthenticationTest - Tests fonctionnels pour l'authentification et les autorisations.
+ *
+ * Rôle : Vérifie que le système d'authentification et d'autorisation fonctionne correctement.
+ *
+ * Tests inclus :
+ * 1. testLoginAndAccessSecuredRoute() : Teste le flux complet de login et l'accès aux routes sécurisées
+ * 2. testArticleAuthorization() : Teste les autorisations pour la modification des articles
+ *
+ * Utilise :
+ * - WebTestCase de Symfony : Pour simuler des requêtes HTTP
+ * - Les fixtures AppFixtures : Pour avoir des données de test en base
+ * - Les utilisateurs : admin@diamond.com (ROLE_ADMIN) et aymerick@diamond.com (ROLE_USER)
+ *
+ * Dépendances :
+ * - UserRepository : Pour récupérer les utilisateurs
+ * - ArticleRepository : Pour récupérer les articles
+ *
+ * @package App\Tests
+ */
 class AuthenticationTest extends WebTestCase
 {
+    /**
+     * Teste le flux complet d'authentification et d'accès aux routes sécurisées.
+     *
+     * Scénarios testés :
+     * 1. Accès à une route sécurisée (/api/equipements) SANS token → 401 Unauthorized
+     * 2. Tentative de login avec des identifiants INVALIDES → 401 Unauthorized
+     * 3. Login avec des identifiants VALIDES (aymerick@diamond.com / password) → 200 OK
+     *    - Vérifie que la réponse contient un token JWT
+     * 4. Accès à une route sécurisée AVEC token → 200 OK
+     *
+     * Utilise l'utilisateur aymerick@diamond.com avec mot de passe 'password'.
+     *
+     * @return void
+     */
     public function testLoginAndAccessSecuredRoute(): void
     {
         $client = static::createClient();
@@ -61,6 +95,23 @@ class AuthenticationTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
+    /**
+     * Teste les autorisations pour la modification des articles.
+     *
+     * Scénarios testés :
+     * 1. Accès non connecté à /articles/{id}/modifier → Redirection vers /login
+     * 2. Connecté en tant qu'utilisateur normal (aymerick@diamond.com) :
+     *    - Accès à SON PROPRE article → 200 OK
+     *    - Accès à l'article d'un AUTRE → 403 Forbidden
+     * 3. Connecté en tant qu'admin (admin@diamond.com) :
+     *    - Accès à N'IMPORTE QUEL article → 200 OK
+     *
+     * Utilise :
+     * - aymerick@diamond.com (ROLE_USER) : Utilisateur normal
+     * - admin@diamond.com (ROLE_ADMIN) : Administrateur
+     *
+     * @return void
+     */
     public function testArticleAuthorization(): void
     {
         $client = static::createClient();

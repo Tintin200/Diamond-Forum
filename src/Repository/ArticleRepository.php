@@ -7,10 +7,16 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * ArticleRepository - Repository pour l'entité Article.
+ * Étend ServiceEntityRepository avec toutes les méthodes de base pour les requêtes Doctrine.
  * @extends ServiceEntityRepository<Article>
  */
 class ArticleRepository extends ServiceEntityRepository
 {
+    /**
+     * Constructeur - Initialise le repository pour l'entité Article.
+     * @param ManagerRegistry $registry Registry Doctrine pour gérer les entités
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Article::class);

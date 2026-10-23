@@ -7,8 +7,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * NewsController - Affiche les articles sous forme de fil d'actualité.
+ * Sépare en "À la Une" (3 plus récents) et "Publications de la Communauté".
+ */
 final class NewsController extends AbstractController
 {
+    /**
+     * Affiche la page des actualités avec tous les articles.
+     * @param ArticleRepository $articleRepository Repository pour récupérer les articles
+     * @return Response Page des actualités rendue avec Twig
+     */
     #[Route('/news', name: 'app_news')]
     public function index(ArticleRepository $articleRepository): Response
     {

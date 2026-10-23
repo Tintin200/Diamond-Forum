@@ -20,16 +20,13 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
-    # Configuration spécifique pour le rate limiting
-    App\EventListener\RateLimitListener:
-        arguments:
-            $apiLimiter: '@rate_limiter.api'
-            $authLimiter: '@rate_limiter.auth'
-            $sensitivePagesLimiter: '@rate_limiter.sensitive_pages'
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, priority: 200 }
-
+    
     # Configuration spécifique pour les en-têtes de sécurité
     App\EventListener\SecurityHeadersListener:
         tags:
             - { name: kernel.event_listener, event: kernel.response, priority: 100 }
+    
+    App\Service\BaseballApiService:
+        arguments:
+            $baseballApiKey: '%env(BASEBALL_API_KEY)%'
+            $baseballApiUrl: '%env(BASEBALL_API_URL)%'
