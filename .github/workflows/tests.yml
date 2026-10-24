@@ -21,13 +21,13 @@ jobs:
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping"
+          --health-cmd="mysqladmin ping -h localhost -proot"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=10
 
     env:
-      APP_ENV: "mysql://root:root@localhost:3306/diamond?serverVersion=11.1&charset=utf8mb4"
+      APP_ENV: "mysql://root:root@localhost:3306/diamond_test?serverVersion=11.1&charset=utf8mb4"
 
     steps:
       - name: Checkout code
