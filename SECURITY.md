@@ -92,7 +92,7 @@ composer update
 
 ---
 
-## 📋 Recommandations Supplémentaires
+## Recommandations Supplémentaires
 
 ### 1. Variables d'Environnement
 Créez un fichier `.env.local` (ne pas commiter) avec :
@@ -181,7 +181,7 @@ Vérifiez que la journalisation est configurée pour :
 
 ---
 
-## 📚 Ressources de Sécurité
+## Ressources de Sécurité
 
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
 - [Symfony Security Best Practices](https://symfony.com/doc/current/best_practices/security.html)
@@ -189,7 +189,7 @@ Vérifiez que la journalisation est configurée pour :
 
 ---
 
-## 🎯 Prochaines Étapes Recommandées
+## Prochaines Étapes Recommandées
 
 1. **Mettre à jour toutes les dépendances** :
    ```bash
@@ -214,7 +214,7 @@ Vérifiez que la journalisation est configurée pour :
 
 ---
 
-## 📞 Support
+## Support
 
 Si vous avez des questions sur la sécurité de ce projet, veuillez consulter :
 - La documentation Symfony sur la sécurité
