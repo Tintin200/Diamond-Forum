@@ -28,7 +28,7 @@ jobs:
 
     env:
       APP_ENV: test
-      DATABASE_URL: "mysql://root:root@localhost:3306/diamond_test?serverVersion=11.1&charset=utf8mb4"
+      DATABASE_URL: "mysql://root:root@127.0.0.1:3306/diamond_test?serverVersion=11.1&charset=utf8mb4"
 
     steps:
       - name: Checkout code
