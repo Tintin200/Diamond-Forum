@@ -14,7 +14,7 @@ FROM dunglas/frankenphp:php8.4 AS app
 # opcache         : performances en production
 # zip             : composer / certaines dépendances
 RUN install-php-extensions \
-    pdo_pgsql \
+    pdo_mysql \
     pgsql \
     intl \
     opcache \
@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends libcap2-bin \
     && rm -rf /var/lib/apt/lists/*
 
 # --- Configuration PHP pour la prod ------------------------------------
+ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV APP_ENV=prod
 ENV APP_DEBUG=0
 # Le port réel est fourni par Render au runtime (variable $PORT) ;
@@ -38,7 +39,13 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # --- Dépendances PHP (mise en cache Docker : copiées avant le reste) ---
 COPY composer.json composer.lock symfony.lock ./
-RUN composer install --no-dev --no-scripts --no-progress --no-interaction --optimize-autoloader
+RUN composer install \
+    --no-dev \
+    --no-scripts \
+    --no-autoloader \
+    --prefer-dist \
+    --no-progress \
+    --no-interaction
 
 # --- Reste du code de l'application -------------------------------------
 COPY . .
