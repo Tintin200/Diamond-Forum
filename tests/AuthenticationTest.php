@@ -169,7 +169,16 @@ class AuthenticationTest extends WebTestCase
         // Accessing any article -> 200 OK
         if ($otherArticle) {
             $client->request('GET', sprintf('/articles/%d/modifier', $otherArticle->getId()));
-            $this->assertEquals(200, $client->getResponse()->getStatusCode());
+            if ($otherArticle) {
+            $client->request('GET', sprintf('/articles/%d/modifier', $otherArticle->getId()));
+
+            $response = $client->getResponse();
+            $this->assertEquals(
+                200,
+                $response->getStatusCode(),
+                substr(trim(preg_replace('/\s+/', ' ', strip_tags($response->getContent()))), 0, 1500)
+            );
+        }
         }
     }
 }
