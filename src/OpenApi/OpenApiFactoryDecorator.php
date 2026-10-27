@@ -10,13 +10,27 @@ use ApiPlatform\OpenApi\OpenApi;
 use ApiPlatform\OpenApi\Model\SecurityScheme;
 use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
 
+/**
+ * OpenApiFactoryDecorator - Décorateur pour personnaliser la documentation OpenAPI/Swagger.
+ * Étend la documentation pour ajouter schémas (Credentials, Token), sécurité JWT et endpoint /api/login_check.
+ */
 #[AsDecorator('api_platform.openapi.factory')]
 class OpenApiFactoryDecorator implements OpenApiFactoryInterface
 {
+    /**
+     * Constructeur - Injecte la factory OpenAPI à décorer.
+     * @param OpenApiFactoryInterface $decorated Factory OpenAPI originale d'API Platform
+     */
     public function __construct(
         private OpenApiFactoryInterface $decorated
     ) {}
 
+    /**
+     * Génère et personnalise la spécification OpenAPI.
+     * Ajoute schémas (Credentials, Token), sécurité JWT et endpoint /api/login_check.
+     * @param array $context Contexte pour la génération (optionnel)
+     * @return OpenApi Spécification OpenAPI personnalisée
+     */
     public function __invoke(array $context = []): OpenApi
     {
         $openApi = ($this->decorated)($context);

@@ -6,8 +6,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * HomeController - Affiche la page d'accueil avec données dynamiques (matchs MLB, classements, stats, articles).
+ * Dépendances : BaseballApiService, UserRepository, ArticleRepository, ArticleLikeRepository.
+ */
 class HomeController extends AbstractController
 {
+    /**
+     * Affiche la page d'accueil avec les données dynamiques.
+     * Récupère matchs MLB, classements, statistiques et 3 derniers articles.
+     * @param \App\Service\BaseballApiService $baseballApiService Service pour l'API Baseball
+     * @param \App\Repository\UserRepository $userRepository Repository pour compter les utilisateurs
+     * @param \App\Repository\ArticleRepository $articleRepository Repository pour les articles
+     * @param \App\Repository\ArticleLikeRepository $articleLikeRepository Repository pour les likes
+     * @return Response Page d'accueil rendue avec Twig
+     */
     #[Route('/', name: 'app_home')]
     public function index(
         \App\Service\BaseballApiService $baseballApiService,

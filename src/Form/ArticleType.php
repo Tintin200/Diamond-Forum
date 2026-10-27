@@ -10,8 +10,17 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * ArticleType - Formulaire pour la création et modification d'articles.
+ * Définit les champs : sujet, contenu, tags, image.
+ */
 class ArticleType extends AbstractType
 {
+    /**
+     * Construit le formulaire avec les champs : sujet, contenu, tags, image.
+     * @param FormBuilderInterface $builder Builder du formulaire
+     * @param array $options Options du formulaire
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -59,6 +68,10 @@ class ArticleType extends AbstractType
         ;
     }
 
+    /**
+     * Configure les options du formulaire. Définit data_class : Article::class.
+     * @param OptionsResolver $resolver Résolveur d'options
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

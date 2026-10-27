@@ -13,15 +13,31 @@ use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Faker\Factory;
 
+/**
+ * AppFixtures - Fixtures pour charger les données initiales de l'application.
+ * Charge utilisateurs (7), équipements (6), articles (5), likes, vues et messages de contact.
+ */
 class AppFixtures extends Fixture
 {
+    /**
+     * @var UserPasswordHasherInterface Service pour hacher les mots de passe
+     */
     private UserPasswordHasherInterface $passwordHasher;
 
+    /**
+     * Constructeur - Injecte le hasher de mots de passe.
+     * @param UserPasswordHasherInterface $passwordHasher Service pour hacher les mots de passe
+     */
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
         $this->passwordHasher = $passwordHasher;
     }
 
+    /**
+     * Charge les données de base dans la base de données.
+     * Charge utilisateurs, équipements, articles, likes, vues et messages de contact.
+     * @param ObjectManager $manager Gestionnaire d'entités pour persister les objets
+     */
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');

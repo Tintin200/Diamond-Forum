@@ -10,8 +10,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * ArticleController - Gère le CRUD des articles avec vérification d'authentification.
+ * Seuls l'auteur ou un admin peuvent modifier/supprimer un article.
+ */
 class ArticleController extends AbstractController
 {
+    /**
+     * Crée un nouvel article. Vérifie l'authentification, traite le formulaire et persiste l'article.
+     * @param Request $request Requête HTTP contenant les données du formulaire
+     * @param EntityManagerInterface $entityManager Gestionnaire d'entités pour persister l'article
+     */
     #[Route('/articles/nouveau', name: 'app_article_new')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -42,12 +51,23 @@ class ArticleController extends AbstractController
         ]);
     }
 
+    /**
+     * Redirige /articles vers /news pour maintenir la compatibilité des liens.
+     * @return Response Redirection permanente vers app_news
+     */
     #[Route('/articles', name: 'app_articles')]
     public function list(): Response
     {
         return $this->redirectToRoute('app_news');
     }
 
+    /**
+     * Modifie un article existant. Vérifie l'authentification, les droits (auteur/admin) et traite le formulaire.
+     * @param Article $article Article à modifier
+     * @param Request $request Requête HTTP contenant les données du formulaire
+     * @param EntityManagerInterface $entityManager Gestionnaire d'entités
+     * @return Response Redirection vers app_news ou rendu du formulaire
+     */
     #[Route('/articles/{id}/modifier', name: 'app_article_edit')]
     public function edit(Article $article, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -70,10 +90,6 @@ class ArticleController extends AbstractController
             return new Response('Accès interdit', Response::HTTP_FORBIDDEN);
         }
 
-        // Temporary debug: return simple response to avoid form/template issues
-        return new Response('Edit form would be here', Response::HTTP_OK);
-        
-        /*
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
@@ -89,9 +105,28 @@ class ArticleController extends AbstractController
             'form' => $form->createView(),
             'article' => $article,
         ]);
-        */
     }
 
+    /**
+     * Affiche un article individuel.
+     * @param Article $article Article à afficher
+     * @return Response Page de détail de l'article rendue avec Twig
+     */
+    #[Route('/articles/{id}', name: 'app_article_show')]
+    public function show(Article $article): Response
+    {
+        return $this->render('article/show.html.twig', [
+            'article' => $article,
+        ]);
+    }
+
+    /**
+     * Supprime un article et ses dépendances (likes, vues). Vérifie droits (auteur/admin) et token CSRF.
+     * @param Article $article Article à supprimer
+     * @param Request $request Contient le token CSRF
+     * @param EntityManagerInterface $entityManager Pour supprimer les entités
+     * @return Response Redirection vers app_news avec message flash
+     */
     #[Route('/articles/{id}/supprimer', name: 'app_article_delete', methods: ['POST'])]
     public function delete(Article $article, Request $request, EntityManagerInterface $entityManager): Response
     {
