@@ -60,6 +60,11 @@ jobs:
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist --no-progress --optimize-autoloader --no-scripts
 
+      - name : Install importmap assets
+        run: |
+          php bin/console importmap:install --no-interaction -v 
+          ls -la assets/vendor
+
       - name: Clear Symfony cache for test environment
         run: php bin/console cache:clear --env=test --no-interaction
 
@@ -84,7 +89,3 @@ jobs:
       - name : Show test log on failure
         if: failure()
         run: tail -n 100 var/log/test.log || true
-
-      - name : Install importmap assets
-        run: php bin/console importmap:install --no-interaction -v ls -la assets/vendor
-             php bin/console asset-map:compile --env-test --no-interaction 
