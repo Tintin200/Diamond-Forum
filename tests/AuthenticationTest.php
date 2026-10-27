@@ -181,5 +181,15 @@ class AuthenticationTest extends WebTestCase
         }
         }
     }
+
+    private function assertStatus(int $expected, $client): void
+    {
+        $response = $client->getResponse();
+        $this->assertEquals(
+            $expected,
+            $response->getStatusCode(),
+            substr(trim(preg_replace('/\s+/', ' ', strip_tags((string) $response->getContent()))), 0, 1500)
+        );
+    }
 }
 
